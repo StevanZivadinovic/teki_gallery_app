@@ -6,10 +6,12 @@ import {
 } from "react-native-safe-area-context";
 import { styles } from "@/style";
 import { ChevronLeftIcon, HeartIcon } from "react-native-heroicons/outline";
+import { useState } from "react";
 
 export default function MovieDetails() {
   const { params: item } = useRoute();
   const insets = useSafeAreaInsets();
+  const [favorite, setFavorite] = useState(false)
   console.log(item);
   return (
     <ScrollView
@@ -36,8 +38,8 @@ export default function MovieDetails() {
           >
             <HeartIcon
               size={28}
-              color={true ? 'white' :'transparent'}
-              fill={false ? 'white' :'transparent'}
+              color={favorite ? 'white' :'transparent'}
+              fill={!favorite ? 'white' :'transparent'}
             ></HeartIcon>
           </TouchableOpacity>
         </View>
