@@ -1,44 +1,38 @@
 import React from "react";
 import { Dimensions, Text, View } from "react-native";
 import Carousel from "react-native-snap-carousel";
-import { MovieCard } from "./MovieCard"; // Ensure correct import path
+import { MovieCard } from "./MovieCard"; 
+import { ScreenNavigationPropType, MovieType, TrendingMoviesProps } from "./Types";
+import { useNavigation } from "@react-navigation/native";
 
-interface TrendingMoviesProps {
-  data: MovieType[];
-}
 
-interface MovieType {
-  id: string;
-  title: string;
-  url: string;
-}
+
 
 const {height, width } = Dimensions.get("window");
 
 export const TrendingMovies: React.FC<TrendingMoviesProps> = ({ data }) => {
-  const isCarousel = React.useRef(null);
+  const navigation = useNavigation<ScreenNavigationPropType>();
   const handleClick = (item: MovieType) => {
     console.log("clicked", item);
-    // navigation.navigate('Movie', item);
+   
+    navigation.navigate('MovieDetails', item);
   };
 
-  const renderItem = ({ item }: { item: MovieType }) => {
-    return <MovieCard item={item} handleClick={() => handleClick(item)} />;
+  const renderItem = ({ item, index }: { item: MovieType, index:number }) => {
+    return <MovieCard item={item} handleClick={() => handleClick(item)}  />;
   };
-  console.log(data);
   return (
-    <View style={{ marginBottom: 32 }}>
+    <View style={{ marginBottom: 32, marginLeft:15 }}>
       <Text className="text-2xl text-white">Trending</Text>
       <Carousel
         layout={'default'}
-        ref={isCarousel}
         data={data}
         //@ts-ignore
         renderItem={renderItem}
         sliderWidth={width}
         itemWidth={width * 0.62}
         useScrollView={true}
-        firstItem={1}
+        firstItem={2}
         loop={true}
         slideStyle={{ display: "flex", alignItems: "center", justifyContent:'center' }}
       />

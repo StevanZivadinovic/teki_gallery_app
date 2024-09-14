@@ -15,11 +15,10 @@ export const MovieCard: React.FC<MovieCardProps>  = ({item, handleClick}) => {
     '1': require('./../assets/images/sv_jovan.jpg'),
     '2': require('./../assets/images/sv_andjeo_cuvar.png'),
     '3': require('./../assets/images/sv_velikomucenik_georgije.jpg'),
-    // Add other mappings here
   };
   const imageSource = imageMap[item.id] || require('./../assets/images/sv_jovan.jpg');
     return (
-      <TouchableWithoutFeedback>
+      <TouchableWithoutFeedback onPress={()=>{handleClick(item)}}>
         <Image
           source={imageSource} 
           style={{

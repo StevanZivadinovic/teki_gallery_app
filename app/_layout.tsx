@@ -42,7 +42,7 @@ export default function RootLayout() {
           name="index"
         />
         <Stack.Screen
-          name="about"
+          name="MovieDetails"
         />
          <Stack.Screen
           name="reviewDetails"
