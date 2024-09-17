@@ -13,9 +13,12 @@ import {
 } from "react-native-safe-area-context";
 import { styles, theme } from "@/style";
 import { ChevronLeftIcon, HeartIcon } from "react-native-heroicons/outline";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { RootStackParamList } from "@/components/Types";
 import { LinearGradient } from "expo-linear-gradient";
+import { imageMap, similar, topCastImageMap } from "@/assets/fetchedImages";
+import { router } from "expo-router";
+import MovieList from "@/components/MovieList";
 
 export default function MovieDetails() {
   const { width, height } = Dimensions.get("window");
@@ -23,14 +26,11 @@ export default function MovieDetails() {
   const item = route.params;
   const insets = useSafeAreaInsets();
   const [favorite, setFavorite] = useState(false);
-  console.log(item && item.id);
-  const imageMap: { [key: string]: any } = {
-    "1": require("./../assets/images/sv_jovan.jpg"),
-    "2": require("./../assets/images/sv_andjeo_cuvar.png"),
-    "3": require("./../assets/images/sv_velikomucenik_georgije.jpg"),
-  };
+
+
   const imageSource =
     imageMap[item.id] || require("./../assets/images/sv_jovan.jpg");
+
   return (
     <ScrollView
       contentContainerStyle={{ paddingBottom: 20 }}
@@ -40,7 +40,7 @@ export default function MovieDetails() {
         style={{ flex: 1, marginTop: insets.top + 15 }}
         className="z-20 w-full flex-row justify-between items-center px-4 absolute"
       >
-        <TouchableOpacity style={styles.background} className="rounded-xl p-1">
+        <TouchableOpacity style={styles.background} className="rounded-xl p-1" onPress={()=>{router.back()}}>
           <ChevronLeftIcon
             size={28}
             strokeWidth={2.5}
@@ -70,11 +70,63 @@ export default function MovieDetails() {
           }}
         />
         <LinearGradient
-        colors={['transparent', 'rgba(23,23,23,0.8)', 'rgba(23,23,23,0.8)']}
-        style={{width, height:height*0.4}}
-        className="absolute bottom-0">
-      </LinearGradient>
+          colors={["transparent", "rgba(23,23,23,0.8)", "rgba(23,23,23,0.8)"]}
+          style={{ width, height: height * 0.4 }}
+          className="absolute bottom-0 flex justify-end"
+        >
+          <Text className="text-3xl font-bold text-white text-center">
+            {item.title}
+          </Text>
+        </LinearGradient>
       </View>
+      <View className="mx-6">
+        <Text className="text-neutral-400 mt-2 text-center">
+          Released &#183; 2020 &#183; 170min{" "}
+        </Text>
+        <Text className="text-neutral-400 mt-2 text-center">
+          Action &#183; Thrill &#183; Comedy{" "}
+        </Text>
+
+        <Text className="text-neutral-400 mt-2 text-justify">
+          Perhaps far exposed age effects. Now distrusts you her delivered
+          applauded affection out sincerity. As tolerably recommend shameless
+          unfeeling he objection consisted. She although cheerful perceive
+          screened throwing met not eat distance. Viewing hastily or written
+          dearest elderly up weather it as. So direction so sweetness or
+          extremity at daughters. Provided put unpacked now but bringing.
+        </Text>
+      </View>
+      <SafeAreaView>
+      <View className="mx-6">
+        <Text className="text-xl text-white mb-2">Top Cast</Text>
+      </View>
+      <View className="flex-row mb-6">
+        <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{paddingHorizontal:24}}
+        >
+      {Object.entries(topCastImageMap)?.map(([key, image]) => (
+        
+        <TouchableOpacity key={key} onPress={()=>{router.navigate('./Person')}}>
+          <View className="flex align-middle text-center self-center justify-center">
+        <Image
+          
+          source={image?.src}
+          style={{
+            width: width * 0.2,
+            height: height * 0.1,
+          }}
+          className="rounded-full mr-3"
+        />
+        <Text className="text-neutral-300 text-center text-xs">{image.name}</Text>
+          </View>
+        </TouchableOpacity>
+      ))}
+        </ScrollView>
+      </View>
+      <MovieList data={similar} title='Similar Movies' showSeeAll={false}/>
+      </SafeAreaView>
     </ScrollView>
   );
 }

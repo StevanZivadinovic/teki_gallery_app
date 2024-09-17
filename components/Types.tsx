@@ -13,6 +13,7 @@ export interface MovieType {
 export interface MovieListType {
   data: MovieType[];
   title: string;
+  showSeeAll:boolean
 }
 export type RootStackParamList = {
   MovieDetails: MovieType; // Define the route and the parameters it expects

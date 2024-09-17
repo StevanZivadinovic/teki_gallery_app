@@ -1,47 +1,53 @@
 import { styles } from "@/style";
 import React from "react";
-import { Dimensions, Image, Text, TouchableOpacity, View } from "react-native";
+import { Dimensions, Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { TouchableWithoutFeedback } from "react-native";
 import { MovieListType, MovieType } from "./Types";
+import { imageMap } from "@/assets/fetchedImages";
+import { router } from "expo-router";
 
-const MovieList = ({ data, title }: MovieListType) => {
+const MovieList = ({ data, title, showSeeAll }: MovieListType) => {
   let { width, height } = Dimensions.get("window");
-  const imageMap: { [key: string]: any } = {
-    "1": require("./../assets/images/sv_jovan.jpg"),
-    "2": require("./../assets/images/sv_andjeo_cuvar.png"),
-    "3": require("./../assets/images/sv_velikomucenik_georgije.jpg"),
-  };
   const imageSource = (item: MovieType) =>
     imageMap[item.id] || require("./../assets/images/sv_jovan.jpg");
   const imageName =(item: MovieType)=> item.title.length>14 ? item.title.slice(14):item.title;
   return (
     <View>
       <View className="flex-row items-center justify-between mx-4">
-        <Text className="text-2xl text-white">{title}</Text>
+        <Text className="text-xl text-white">{title}</Text>
         <TouchableOpacity
           onPress={() => {
             console.log("Shows it all!");
           }}
         >
-          <Text className="text-xl" style={styles.text}>
-            See All
-          </Text>
+         {showSeeAll && <Text className="text-lg" style={styles.text}>
+            See all
+          </Text>}
         </TouchableOpacity>
       </View>
-      <View className="flex-row">
+      <View className="flex-row mx-6"> 
+        <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{justifyContent:'space-between', width:width}}
+        >
         {data.map((item: MovieType, index: number) => {
           return (
-            <TouchableWithoutFeedback key={index}>
+            <TouchableWithoutFeedback key={index} onPress={()=>{
+              router.push('./')
+            }}>
                 <View>
               <Image
                 source={imageSource(item)}
-                style={{ width: width * 0.33, height: height * 0.22 }}
+                style={{ width: width * 0.25, height: height * 0.15 }}
+                className="rounded-xl"
               ></Image>
-              <Text>{imageName(item)}</Text>
+              <Text className="text-center text-neutral-300">{imageName(item)}</Text>
                 </View>
             </TouchableWithoutFeedback>
           );
         })}
+        </ScrollView>
       </View>
     </View>
   );

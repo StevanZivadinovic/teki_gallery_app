@@ -1,11 +1,9 @@
 
 import { StatusBar } from 'expo-status-bar';
 import { View, Text, Platform, ScrollView } from 'react-native';
-
 import { Bars3CenterLeftIcon, MagnifyingGlassIcon } from "react-native-heroicons/outline";
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {styles} from './../style/index'
-import { useState } from 'react';
 import { TrendingMovies } from '@/components/TrendingMovies';
 import MovieList from '@/components/MovieList';
 import { toprated, trending, upcoming } from '@/assets/fetchedImages';
@@ -32,9 +30,9 @@ export default function App() {
           {/* trending movies in carousel */}
           <TrendingMovies data={trending}/>
           {/* upcoming movies */}
-          <MovieList data={upcoming} title='Upcoming Movies'/>
+          <MovieList data={upcoming} title='Upcoming Movies' showSeeAll={true}/>
           {/* top rated movies */}
-          <MovieList data={toprated} title='Top rated movies'/>
+          <MovieList data={toprated} title='Top rated movies' showSeeAll={true}/>
 
         </ScrollView>
    </View>

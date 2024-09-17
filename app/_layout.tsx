@@ -38,15 +38,9 @@ export default function RootLayout() {
           headerShown: false, // Globally hide headers
         }}
       >
-        <Stack.Screen
-          name="index"
-        />
-        <Stack.Screen
-          name="MovieDetails"
-        />
-         <Stack.Screen
-          name="reviewDetails"
-        />
+        <Stack.Screen name="index" />
+        <Stack.Screen name="MovieDetails" />
+        <Stack.Screen name="Person" />
         <Stack.Screen name="+not-found" />
       </Stack>
     </ThemeProvider>

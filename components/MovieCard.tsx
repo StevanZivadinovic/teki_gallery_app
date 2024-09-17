@@ -1,6 +1,7 @@
+import { imageMap } from "@/assets/fetchedImages";
 import { Dimensions, Image, TouchableWithoutFeedback } from "react-native";
 interface MovieCardProps {
-  item: any; // Replace `any` with a more specific type if possible
+  item: any; 
   handleClick: (item: MovieType) => void;
 }
 interface MovieType {
@@ -11,11 +12,6 @@ interface MovieType {
 
 export const MovieCard: React.FC<MovieCardProps>  = ({item, handleClick}) => {
   let { width, height } = Dimensions.get("window");
-  const imageMap: { [key: string]: any } = {
-    '1': require('./../assets/images/sv_jovan.jpg'),
-    '2': require('./../assets/images/sv_andjeo_cuvar.png'),
-    '3': require('./../assets/images/sv_velikomucenik_georgije.jpg'),
-  };
   const imageSource = imageMap[item.id] || require('./../assets/images/sv_jovan.jpg');
     return (
       <TouchableWithoutFeedback onPress={()=>{handleClick(item)}}>
