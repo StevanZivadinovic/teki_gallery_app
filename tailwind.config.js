@@ -8,7 +8,8 @@ module.exports = {
     './assets/**/*.{js,jsx,ts,tsx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+    },
   },
   plugins: [],
 }

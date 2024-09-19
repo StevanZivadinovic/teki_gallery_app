@@ -1,21 +1,35 @@
-import { NativeStackNavigationProp } from "react-native-screens/lib/typescript/native-stack/types";
+  import { NativeStackNavigationProp } from "react-native-screens/lib/typescript/native-stack/types";
 
-export interface TrendingMoviesProps {
-  data: MovieType[];
-}
+  export interface TrendingMoviesProps {
+    data: MovieType[];
+  }
 
-export interface MovieType {
-  id: string;
-  title: string;
-  url: string;
-}
+  export interface MovieType {
+    id: string;
+    title: string;
+    url: string;
+  }
 
-export interface MovieListType {
-  data: MovieType[];
-  title: string;
-  showSeeAll:boolean
-}
-export type RootStackParamList = {
-  MovieDetails: MovieType; // Define the route and the parameters it expects
-};
-export type ScreenNavigationPropType = NativeStackNavigationProp<RootStackParamList>;
+  export interface PersonType{
+    src: any,
+    name: string,
+    adress: string,
+    gender: string,
+    birthday: string,
+    married: string,
+    popularity: number,
+    biography:string,
+    filmography:any[]
+  }
+
+  export interface MovieListType {
+    data: MovieType[];
+    title: string;
+    showSeeAll:boolean
+  }
+  export type RootStackParamList = {
+    MovieDetails: MovieType; // Define the route and the parameters it expects
+    Person:PersonType;
+  };
+  
+  export type ScreenNavigationPropType = NativeStackNavigationProp<RootStackParamList>;

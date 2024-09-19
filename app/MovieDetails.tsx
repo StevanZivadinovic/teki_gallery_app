@@ -17,12 +17,13 @@ import { useState } from "react";
 import { RootStackParamList } from "@/components/Types";
 import { LinearGradient } from "expo-linear-gradient";
 import { imageMap, similar, topCastImageMap } from "@/assets/fetchedImages";
-import { router } from "expo-router";
 import MovieList from "@/components/MovieList";
+import { useRouter } from "expo-router";
 
 export default function MovieDetails() {
   const { width, height } = Dimensions.get("window");
   const route = useRoute<RouteProp<RootStackParamList, "MovieDetails">>();
+  const router = useRouter();
   const item = route.params;
   const insets = useSafeAreaInsets();
   const [favorite, setFavorite] = useState(false);
@@ -108,7 +109,13 @@ export default function MovieDetails() {
         >
       {Object.entries(topCastImageMap)?.map(([key, image]) => (
         
-        <TouchableOpacity key={key} onPress={()=>{router.navigate('./Person')}}>
+        <TouchableOpacity key={key} onPress={() => { 
+          
+          router.push({
+            pathname: '/Person',
+            params: image
+          }) 
+        }}>
           <View className="flex align-middle text-center self-center justify-center">
         <Image
           

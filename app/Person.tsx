@@ -1,47 +1,52 @@
-import { styles, theme } from "@/style";
-import { router } from "expo-router";
-import React, { useState } from "react";
-import { ScrollView, Text, TouchableOpacity, View } from "react-native";
-import { ChevronLeftIcon, HeartIcon } from "react-native-heroicons/outline";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { Header } from "@/components/Header";
+import React from "react";
+import { Dimensions, Image, ScrollView, View } from "react-native";
+import { RouteProp, useRoute } from "@react-navigation/native";
+import { RootStackParamList } from "@/components/Types";
 
 const Person = () => {
-  const insets = useSafeAreaInsets();
-  const [favorite, setFavorite] = useState(false);
+  const { width, height } = Dimensions.get("window");
+  const route = useRoute<RouteProp<RootStackParamList, "Person">>();
+  const person = route.params;
+
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
       contentContainerStyle={{ paddingBottom: 20 }}
       className="flex-1 bg-neutral-900"
     >
+      <Header />
       <View
-        style={{ flex: 1, marginTop: insets.top + 15 }}
-        className="z-20 w-full flex-row justify-between items-center px-4"
+        className="flex-row justify-center mt-8 rounded-full"
+        style={{
+          shadowColor: 'white', // Make it red for visibility
+          // shadowOffset: { width: 0, height: 10 },
+          // shadowOpacity: 1, // Full opacity for clear visibility
+          // shadowRadius: 40, // Increase radius for softer shadow
+          elevation: 1, // Elevation for Android 
+          
+        }}
+        
       >
-        <TouchableOpacity
-          style={styles.background}
-          className="rounded-xl p-1"
-          onPress={() => {
-            router.back();
+        <View
+          style={{
+            borderWidth: 2,
+            borderColor: 'white',
           }}
+          className="overflow-hidden rounded-full"
         >
-          <ChevronLeftIcon
-            size={28}
-            strokeWidth={2.5}
-            color="white"
-          ></ChevronLeftIcon>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => setFavorite(!favorite)}
-          className="rounded-xl p-1"
-        >
-          <HeartIcon
-            size={28}
-            fill={!favorite ? "white" : theme.background}
-          ></HeartIcon>
-        </TouchableOpacity>
+          <Image
+            source={person?.src}
+            style={{
+              width: width * 0.8,
+              height: height * 0.4,             
+            }}
+            className="rounded-full"
+          />
+        </View>
       </View>
     </ScrollView>
   );
 };
+
 export default Person;
