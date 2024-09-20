@@ -8,13 +8,14 @@ import { router } from "expo-router";
 
 const MovieList = ({ data, title, showSeeAll }: MovieListType) => {
   let { width, height } = Dimensions.get("window");
+  console.log(data)
   const imageSource = (item: MovieType) =>
     imageMap[item.id] || require("./../assets/images/sv_jovan.jpg");
   const imageName =(item: MovieType)=> item.title.length>14 ? item.title.slice(14):item.title;
   return (
     <View>
       <View className="flex-row items-center justify-between mx-4">
-        <Text className="text-xl text-white">{title}</Text>
+        <Text className="text-xl text-white mb-5">{title}</Text>
         <TouchableOpacity
           onPress={() => {
             console.log("Shows it all!");
@@ -31,7 +32,7 @@ const MovieList = ({ data, title, showSeeAll }: MovieListType) => {
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{justifyContent:'space-between', width:width}}
         >
-        {data.map((item: MovieType, index: number) => {
+        {data?.map((item: MovieType, index: number) => {
           return (
             <TouchableWithoutFeedback key={index} onPress={()=>{
               router.push('./')

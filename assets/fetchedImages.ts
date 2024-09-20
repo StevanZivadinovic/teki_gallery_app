@@ -1,3 +1,5 @@
+import { MovieType, PersonType } from "@/components/Types";
+
 const trending = [
   { id: "1", title: "Oxigen", url: "./../assets/images/movie_1.jpg" },
   { id: "2", title: "Pepelricane", url: "./../assets/images/movie_2.jpg" },
@@ -13,7 +15,7 @@ const toprated = [
   { id: "2", title: "Pepelricane", url: "./../assets/images/movie_2.jpg" },
   { id: "3", title: "Essence", url: "./../assets/images/movie_3.jpg" },
 ];
-const similar = [
+const similar:MovieType[] = [
   { id: "1", title: "Oxigen", url: "./../assets/images/movie_1.jpg" },
   { id: "2", title: "Pepelricane", url: "./../assets/images/movie_2.jpg" },
   { id: "3", title: "Essence", url: "./../assets/images/movie_3.jpg" },
@@ -24,7 +26,7 @@ const imageMap: { [key: string]: any } = {
   "2": require("./../assets/images/movie_2.jpg"),
   "3": require("./../assets/images/movie_3.jpg"),
 };
-const topCastImageMap: { [key: string]: any } = {
+const topCastImageMap: { [key: string]: PersonType } = {
   "1": {
     src: require("./../assets/images/face_1.jpg"),
     name: "John Wick",
@@ -59,7 +61,7 @@ const topCastImageMap: { [key: string]: any } = {
     popularity: 98.23,
     biography:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-    filmography: similar,
+  filmography: similar,
   },
   "4": {
     src: require("./../assets/images/face_4.jpg"),

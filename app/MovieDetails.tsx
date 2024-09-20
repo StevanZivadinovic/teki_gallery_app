@@ -113,7 +113,15 @@ export default function MovieDetails() {
           
           router.push({
             pathname: '/Person',
-            params: image
+            params: { src: image.src,
+        name: image.name,
+        adress: image.adress,
+        gender: image.gender,
+        birthday: image.birthday,
+        married: image.married,
+        popularity: image.popularity,
+        biography: image.biography,
+        filmography: []}
           }) 
         }}>
           <View className="flex align-middle text-center self-center justify-center">

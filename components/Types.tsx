@@ -19,7 +19,7 @@
     married: string,
     popularity: number,
     biography:string,
-    filmography:any[]
+    filmography:MovieType[]
   }
 
   export interface MovieListType {
