@@ -1,6 +1,6 @@
 import { imageMap, similar } from "@/assets/fetchedImages";
 import { useNavigation } from "expo-router";
-import React from "react";
+import React, { useState } from "react";
 import {
   Image,
   Platform,
@@ -19,6 +19,7 @@ const SearchScreen = () => {
   const navigation = useNavigation();
   const os = Platform.OS;
   let {height, width} = useWindowDimensions()
+  const [searchedMovies, setSearchedMovies] = useState(similar)
   
   
   return (
@@ -46,12 +47,11 @@ const SearchScreen = () => {
       <View className="mx-6">
         <Text className="text-white">Results ({similar.length})</Text>
         <View className="flex-row flex-wrap justify-between">
-        {
-          similar?.map((a,i)=>{
+        {searchedMovies.length>0 ?
+          searchedMovies?.map((a,i)=>{
           return(
-            <View className="mt-6">
+            <View className="mt-6" key={i}>
             <Image
-            key={i}
             source={imageMap[i+1]}
             className="rounded-lg"
             style={{
@@ -62,7 +62,19 @@ const SearchScreen = () => {
             <Text className="text-neutral-200 mt-1">{a.title.length > 14 ? a.title.slice(14) + '...' : a.title}</Text>
             </View>
           )
-          })
+          }) : 
+          <View className="mt-20 self-center mx-auto">
+          <Image
+          source={{ uri: 'https://img.icons8.com/nolan/64/movie-projector.png' }}
+          className="rounded-lg"
+          style={{
+            height:height*0.3,
+            width:width*0.50
+          }}
+          />
+          <Text className="text-neutral-200 mt-1 text-xl text-center">There is no results...</Text>
+       </View>
+        
         }
         </View>
       </View>
