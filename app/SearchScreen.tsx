@@ -1,6 +1,7 @@
 import { imageMap, similar } from "@/assets/fetchedImages";
+import Loading from "@/components/Loading";
 import { useNavigation } from "expo-router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Image,
   Platform,
@@ -19,8 +20,12 @@ const SearchScreen = () => {
   const navigation = useNavigation();
   const os = Platform.OS;
   let {height, width} = useWindowDimensions()
-  const [searchedMovies, setSearchedMovies] = useState(similar)
+  const [searchedMovies, setSearchedMovies] = useState(similar);
+  const [loading, setLoading] = useState(true)
   
+  useEffect(() => {
+    setLoading(false)
+  }, [])
   
   return (
       <ScrollView className={`bg-neutral-800 flex-1`}>
@@ -44,7 +49,7 @@ const SearchScreen = () => {
           <XMarkIcon size={25} color={"white"} />
         </TouchableOpacity>
       </View>
-      <View className="mx-6">
+      {loading ? <Loading/> : <View className="mx-6">
         <Text className="text-white">Results ({similar.length})</Text>
         <View className="flex-row flex-wrap justify-between">
         {searchedMovies.length>0 ?
@@ -78,6 +83,8 @@ const SearchScreen = () => {
         }
         </View>
       </View>
+        }
+      
     </SafeAreaView>
       </ScrollView>
   );
