@@ -11,7 +11,7 @@ const MovieList = ({ data, title, showSeeAll }: MovieListType) => {
   const imageSource =(item: any) => {
     return item?.backdrop_path ? {uri:image500(item?.backdrop_path)} : require('./../assets/images/sv_jovan.jpg')
   };
-  const imageName =(item: MovieType)=> item.title.length>14 ? item.title.slice(14):item.title;
+  const imageName =(item: MovieType)=> item.title.length>14 ? item.title.slice(0,14) + '..':item.title;
   return (
     <View>
       <View className="flex-row items-center justify-between mx-4">
@@ -30,7 +30,7 @@ const MovieList = ({ data, title, showSeeAll }: MovieListType) => {
         <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{justifyContent:'space-between', width:width}}
+        contentContainerStyle={{justifyContent:'space-between'}}
         >
         {data?.map((item: any, index: number) => {
           console.log(item, "CARD")
@@ -40,10 +40,9 @@ const MovieList = ({ data, title, showSeeAll }: MovieListType) => {
             }}>
                 <View>
               <Image
-              //@ts-ignore
                 source={imageSource(item)}
                 style={{ width: width * 0.25, height: height * 0.15 }}
-                className="rounded-xl"
+                className="rounded-xl mr-2"
               ></Image>
               <Text className="text-center text-neutral-300">{imageName(item)}</Text>
                 </View>
