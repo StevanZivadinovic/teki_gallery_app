@@ -12,9 +12,7 @@ const {height, width } = Dimensions.get("window");
 
 export const TrendingMovies: React.FC<TrendingMoviesProps> = ({ data }) => {
   const navigation = useNavigation<ScreenNavigationPropType>();
-  const handleClick = (item: MovieType) => {
-    console.log("clicked", item);
-   
+  const handleClick = (item: MovieType) => {   
     navigation.navigate('MovieDetails', item);
   };
 

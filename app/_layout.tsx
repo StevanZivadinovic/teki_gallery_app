@@ -21,7 +21,6 @@ export default function RootLayout() {
   });
 
   useEffect(() => {
-    console.log("haj haj");
     if (loaded) {
       SplashScreen.hideAsync();
     }

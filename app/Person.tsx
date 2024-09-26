@@ -1,10 +1,11 @@
 import { Header } from "@/components/Header";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Dimensions, Image, Platform, SafeAreaView, ScrollView, Text, View } from "react-native";
 import { RouteProp, useRoute } from "@react-navigation/native";
 import { RootStackParamList } from "@/components/Types";
 import MovieList from "@/components/MovieList";
 import { similar } from "@/assets/fetchedImages";
+import Loading from "@/components/Loading";
 
 const Person = () => {
   const { width, height } = Dimensions.get("window");
@@ -13,9 +14,15 @@ const Person = () => {
   const person = route.params;
   const os = Platform.OS
   const filmographyData = Array.isArray(person?.filmography) ? person.filmography : similar
-console.log(person, "FILMOGRAFIJA");
+  const [loading, setLoading] = useState(true)
+  
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false)
+    }, 1000);
+  }, [])
   return (
-    <ScrollView
+    loading ? <Loading/> : <ScrollView
       showsVerticalScrollIndicator={false}
       contentContainerStyle={{ paddingBottom: 20 }}
       className="flex-1 bg-neutral-900"

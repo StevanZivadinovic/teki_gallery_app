@@ -3,14 +3,14 @@ import React from "react";
 import { Dimensions, Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { TouchableWithoutFeedback } from "react-native";
 import { MovieListType, MovieType } from "./Types";
-import { imageMap } from "@/assets/fetchedImages";
 import { router } from "expo-router";
+import { image500 } from "@/Api/moviesApi";
 
 const MovieList = ({ data, title, showSeeAll }: MovieListType) => {
   let { width, height } = Dimensions.get("window");
-  console.log(data)
-  const imageSource = (item: MovieType) =>
-    imageMap[item.id] || require("./../assets/images/sv_jovan.jpg");
+  const imageSource =(item: any) => {
+    return item?.backdrop_path ? {uri:image500(item?.backdrop_path)} : require('./../assets/images/sv_jovan.jpg')
+  };
   const imageName =(item: MovieType)=> item.title.length>14 ? item.title.slice(14):item.title;
   return (
     <View>
@@ -32,13 +32,15 @@ const MovieList = ({ data, title, showSeeAll }: MovieListType) => {
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{justifyContent:'space-between', width:width}}
         >
-        {data?.map((item: MovieType, index: number) => {
+        {data?.map((item: any, index: number) => {
+          console.log(item, "CARD")
           return (
             <TouchableWithoutFeedback key={index} onPress={()=>{
               router.push('./')
             }}>
                 <View>
               <Image
+              //@ts-ignore
                 source={imageSource(item)}
                 style={{ width: width * 0.25, height: height * 0.15 }}
                 className="rounded-xl"

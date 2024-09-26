@@ -13,12 +13,13 @@ import {
 } from "react-native-safe-area-context";
 import { styles, theme } from "@/style";
 import { ChevronLeftIcon, HeartIcon } from "react-native-heroicons/outline";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { RootStackParamList } from "@/components/Types";
 import { LinearGradient } from "expo-linear-gradient";
 import { imageMap, similar, topCastImageMap } from "@/assets/fetchedImages";
 import MovieList from "@/components/MovieList";
 import { useRouter } from "expo-router";
+import Loading from "@/components/Loading";
 
 export default function MovieDetails() {
   const { width, height } = Dimensions.get("window");
@@ -27,13 +28,19 @@ export default function MovieDetails() {
   const item = route.params;
   const insets = useSafeAreaInsets();
   const [favorite, setFavorite] = useState(false);
-
+  const [loading, setLoading] = useState(true)
+  
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false)
+    }, 1000);
+  }, [])
 
   const imageSource =
     imageMap[item.id] || require("./../assets/images/sv_jovan.jpg");
 
   return (
-    <ScrollView
+    loading ? <Loading/> :  <ScrollView
       contentContainerStyle={{ paddingBottom: 20 }}
       className="flex-1 bg-neutral-900"
     >
