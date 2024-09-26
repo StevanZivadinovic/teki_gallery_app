@@ -20,6 +20,7 @@ import { imageMap, similar, topCastImageMap } from "@/assets/fetchedImages";
 import MovieList from "@/components/MovieList";
 import { useRouter } from "expo-router";
 import Loading from "@/components/Loading";
+import { image500 } from "@/Api/moviesApi";
 
 export default function MovieDetails() {
   const { width, height } = Dimensions.get("window");
@@ -36,8 +37,9 @@ export default function MovieDetails() {
     }, 1000);
   }, [])
 
-  const imageSource =
-    imageMap[item.id] || require("./../assets/images/sv_jovan.jpg");
+  const imageSource =(item: any) => {
+    return item?.backdrop_path ? {uri:image500(item?.backdrop_path)} : require('./../assets/images/sv_jovan.jpg')
+  };
 
   return (
     loading ? <Loading/> :  <ScrollView
@@ -68,7 +70,7 @@ export default function MovieDetails() {
 
       <View className="">
         <Image
-          source={imageSource}
+          source={imageSource(item)}
           style={{
             width: width,
             height: height * 0.55,
