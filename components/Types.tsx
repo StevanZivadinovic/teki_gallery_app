@@ -28,7 +28,7 @@
     showSeeAll:boolean
   }
   export type RootStackParamList = {
-    MovieDetails: MovieType; // Define the route and the parameters it expects
+    MovieDetails: any; // Define the route and the parameters it expects
     Person:PersonType;
   };
   

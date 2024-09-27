@@ -1,6 +1,6 @@
 // useMovies.js
 import { useState, useEffect } from 'react';
-import { fetchTrending, fetchTopRated, fetchUpcoming } from './../Api/moviesApi';
+import { fetchTrending, fetchTopRated, fetchUpcoming, fetchMovieDetailsbyID } from './../Api/moviesApi';
 
 const useMovies = () => {
   const [loading, setLoading] = useState(true);
@@ -18,6 +18,7 @@ const useMovies = () => {
         setTrendingData(trending);
         setTopRatedData(topRated);
         setUpcomingData(upcoming);
+      
       } catch (err) {
         console.error(err);
       } finally {

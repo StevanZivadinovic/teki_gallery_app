@@ -12,7 +12,6 @@ interface MovieType {
 
 
 export const MovieCard: React.FC<MovieCardProps>  = ({item, handleClick}) => {
-  console.log(item.backdrop_path)
   let { width, height } = Dimensions.get("window");
   const imageSource = {uri:image500(item.backdrop_path) || require('./../assets/images/sv_jovan.jpg')};
     return (

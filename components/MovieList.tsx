@@ -33,7 +33,6 @@ const MovieList = ({ data, title, showSeeAll }: MovieListType) => {
         contentContainerStyle={{justifyContent:'space-between'}}
         >
         {data?.map((item: any, index: number) => {
-          console.log(item, "CARD")
           return (
             <TouchableWithoutFeedback key={index} onPress={()=>{
               router.push('./')
