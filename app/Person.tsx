@@ -6,6 +6,8 @@ import { RootStackParamList } from "@/components/Types";
 import MovieList from "@/components/MovieList";
 import { similar } from "@/assets/fetchedImages";
 import Loading from "@/components/Loading";
+import usePersonDetails from "@/hooks/usePersonData";
+import { image500 } from "@/Api/moviesApi";
 
 const Person = () => {
   const { width, height } = Dimensions.get("window");
@@ -13,14 +15,12 @@ const Person = () => {
   const route = useRoute<RouteProp<RootStackParamList, "Person">>();
   const person = route.params;
   const os = Platform.OS
-  const filmographyData = Array.isArray(person?.filmography) ? person.filmography : similar
-  const [loading, setLoading] = useState(true)
-  
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false)
-    }, 1000);
-  }, [])
+  const {personDetailsByID, loading }=usePersonDetails(person.id);
+console.log(personDetailsByID)
+const imageSource =(item: any) => {
+  return item?.profile_path ? {uri:image500(item?.profile_path)} : require('./../assets/images/avatar.png')
+};
+const gender = personDetailsByID?.gender === 2 ? 'Male' : personDetailsByID?.gender === 1 ? 'Female' : 'unknown'
   return (
     loading ? <Loading/> : <ScrollView
       showsVerticalScrollIndicator={false}
@@ -42,43 +42,43 @@ const Person = () => {
           className="overflow-hidden rounded-full h-72 w-72"
         >
           <Image
-            source={person?.src}
+            source={imageSource(personDetailsByID)}
             style={{
               width: width * 0.8,
               height: height * 0.4,
             }}
-            className="rounded-full"
+            className="rounded-full flex self-center mt-1"
           />
         </View>
       </View>
       <View className="flex justify-center items-center mx-6">
-        <Text className="text-white text-3xl mt-6 font-bold">{person.name}</Text>
-        <Text className="text-neutral-300 text-md mt-2 opacity-50">{person.adress}</Text>
+        <Text className="text-white text-3xl mt-6 font-bold">{personDetailsByID?.name}</Text>
+        <Text className="text-neutral-300 text-md mt-2 opacity-50">{personDetailsByID?.place_of_birth}</Text>
         <View className="flex-row bg-neutral-700 py-4 px-2 mt-6 rounded-full">
           <View className=" border-r-2 border-neutral-300">
             <Text className="px-3 text-center text-neutral-300 font-bold">Gender</Text>
-            <Text className="px-3 text-center text-neutral-400">{person.gender}</Text>
+            <Text className="px-3 text-center text-neutral-400">{gender}</Text>
           </View>
           <View className="border-r-2 border-neutral-300">
             <Text className="px-3 text-center text-neutral-300 font-bold">Birthday</Text>
-            <Text className="px-3 text-center text-neutral-400">{person.birthday}</Text>
+            <Text className="px-3 text-center text-neutral-400">{personDetailsByID?.birthday}</Text>
           </View>
           <View className="border-r-2 border-neutral-300">
-            <Text className="px-3 text-center text-neutral-300 font-bold">Merried</Text>
-            <Text className="px-3 text-center text-neutral-400">{person.married}</Text>
+            <Text className="px-3 text-center text-neutral-300 font-bold">Known for</Text>
+            <Text className="px-3 text-center text-neutral-400">{personDetailsByID?.known_for_department}</Text>
           </View>
           <View className="">
             <Text className="px-3 text-center text-neutral-300 font-bold">Popularity</Text>
-            <Text className="px-3 text-center text-neutral-400">{person.popularity}</Text>
+            <Text className="px-3 text-center text-neutral-400">{personDetailsByID?.popularity}</Text>
           </View>
         </View>
       </View>
       <SafeAreaView>
         <View className={`${os=='android' ? 'mx-6':''}`}>
           <Text className="text-white text-xl mt-6">Biography</Text>
-          <Text className="my-5 text-neutral-400">{person.biography}</Text>
+          <Text className="my-5 text-neutral-400">{personDetailsByID?.biography}</Text>
         </View>
-        <MovieList data={filmographyData} showSeeAll={false} title="Filmography"/>
+        {/* <MovieList data={filmographyData} showSeeAll={false} title="Filmography"/> */}
       </SafeAreaView>
     </ScrollView>
   );

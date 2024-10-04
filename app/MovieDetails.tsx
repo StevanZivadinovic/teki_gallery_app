@@ -125,15 +125,9 @@ export default function MovieDetails() {
           
           router.push({
             pathname: '/Person',
-            params: { src: a.src,
-        name: a.name,
-        adress: a.adress,
-        gender: a.gender,
-        birthday: a.birthday,
-        married: a.married,
-        popularity: a.popularity,
-        biography: a.biography,
-        filmography: []}
+            params: { 
+              id:a.id
+            }
           }) 
         }}>
           <View className="flex align-middle text-center self-center justify-center">
@@ -152,7 +146,7 @@ export default function MovieDetails() {
       ))}
         </ScrollView>
       </View>
-      <MovieList data={similar} title='Similar Movies' showSeeAll={false}/>
+      <MovieList data={similarMoviesByID} title='Similar Movies' showSeeAll={false}/>
       </SafeAreaView>
     </ScrollView>
   );

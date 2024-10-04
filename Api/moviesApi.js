@@ -31,6 +31,10 @@ const similarMoviesEndpoint = (id) => {
   return `${base}movie/${id}/similar?api_key=${apiKey}&language=en-US&page=1`;
 };
 
+const getPersonDataEndpoint = (personId)=>{
+  return `${base}person/${personId}`;
+}
+
 const apiCall = async (url) => {
   console.log("Fetching URL:", url);
   try {
@@ -70,6 +74,10 @@ const fetchMovieCreditsbyID = async (id) => {
 const fetchSimilarMoview = async (id) => {
   return  await apiCall(similarMoviesEndpoint(id));
 };
+
+const fetchPersonData = async (id)=>{
+  return await apiCall(getPersonDataEndpoint(id));
+}
 export {
   fetchTrending,
   fetchTopRated,
@@ -82,5 +90,6 @@ export {
   similarMoviesEndpoint,
   fetchMovieDetailsbyID,
   fetchMovieCreditsbyID,
-  fetchSimilarMoview
+  fetchSimilarMoview,
+  fetchPersonData
 };

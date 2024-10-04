@@ -11,15 +11,15 @@
   }
 
   export interface PersonType{
-    src: any,
-    name: string,
-    adress: string,
-    gender: string,
-    birthday: string,
-    married: string,
-    popularity: number,
-    biography:string,
-    filmography:MovieType[]
+    id:number,
+    name:string,
+    gender:number,
+    profile_path:string,
+    place_of_birth:string,
+    birthday:string,
+    known_for_department:string,
+    popularity:number,
+    biography:string
   }
 
   export interface MovieListType {
