@@ -1,7 +1,7 @@
 import { imageMap, similar } from "@/assets/fetchedImages";
 import Loading from "@/components/Loading";
 import { useNavigation } from "expo-router";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   Image,
   Platform,
@@ -13,20 +13,45 @@ import {
   useWindowDimensions,
   View,
 } from "react-native";
-
+import {debounce} from 'lodash'
 import { XMarkIcon } from "react-native-heroicons/outline";
+import { fetchSearchedFilmByName, image500 } from "@/Api/moviesApi";
+import { MovieType } from "@/components/Types";
 
 const SearchScreen = () => {
   const navigation = useNavigation();
   const os = Platform.OS;
   let {height, width} = useWindowDimensions()
-  const [searchedMovies, setSearchedMovies] = useState(similar);
+  const [searchedMovies, setSearchedMovies] = useState<MovieType[]>();
   const [loading, setLoading] = useState(true)
   
   useEffect(() => {
     setLoading(false)
   }, [])
-  
+
+  const handleSearch = (value: any)=>{
+    setLoading(true)
+    if(value && value.length>2){
+      fetchSearchedFilmByName(value)
+      .then((data)=>{
+        console.log(data);
+        setSearchedMovies(data)
+        setLoading(false)
+        
+      })
+      .catch((err)=>{
+        console.log(err);
+        setLoading(false)
+      })
+    }else{
+      setSearchedMovies([])
+      setLoading(false)
+    }
+  }
+  const handleTextDebounce = useCallback(debounce(handleSearch,400),[])
+  const imageSource =(item: any) => {
+    return item?.backdrop_path ? {uri:image500(item?.backdrop_path)} : require('./../assets/images/avatar.png')
+  };
   return (
       <ScrollView className={`bg-neutral-800 flex-1`}>
     <SafeAreaView>
@@ -36,6 +61,7 @@ const SearchScreen = () => {
         }`}
       >
         <TextInput
+          onChangeText={handleTextDebounce}
           placeholder="Search Movie"
           placeholderTextColor={"white"}
           className="text-white pl-6 tracking-wider text-left w-[80%] h-12" 
@@ -50,21 +76,21 @@ const SearchScreen = () => {
         </TouchableOpacity>
       </View>
       {loading ? <Loading/> : <View className="mx-6">
-        <Text className="text-white">Results ({similar.length})</Text>
+        <Text className="text-white">Results ({searchedMovies?.length})</Text>
         <View className="flex-row flex-wrap justify-between">
-        {searchedMovies.length>0 ?
+        {searchedMovies && searchedMovies.length>0 ?
           searchedMovies?.map((a,i)=>{
           return(
             <View className="mt-6" key={i}>
             <Image
-            source={imageMap[i+1]}
+            source={imageSource(a)}
             className="rounded-lg"
             style={{
               height:height*0.3,
               width:width*0.40
             }}
             />
-            <Text className="text-neutral-200 mt-1">{a.title.length > 14 ? a.title.slice(14) + '...' : a.title}</Text>
+            <Text className="text-neutral-200 mt-1">{a.title.length > 14 ? a.title.slice(0,20) + '...' : a.title}</Text>
             </View>
           )
           }) : 
@@ -91,3 +117,4 @@ const SearchScreen = () => {
 };
 
 export default SearchScreen;
+

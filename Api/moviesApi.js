@@ -37,6 +37,9 @@ const getPersonDataEndpoint = (personId)=>{
 const personsMoviesEndpoint = (personId)=>{
   return `${base}person/${personId}/movie_credits`
 }
+const searchMoviesEndpoint = (filmName)=>{
+  return `https://api.themoviedb.org/3/search/movie?query=${filmName}&include_adult=false&language=en-US&page=1`
+}
 
 const apiCall = async (url) => {
   console.log("Fetching URL:", url);
@@ -84,6 +87,9 @@ const fetchPersonData = async (id)=>{
 const fetchPersonMoviesData = async (id)=>{
   return await apiCall(personsMoviesEndpoint(id))
 }
+const fetchSearchedFilmByName = async (movieName)=>{
+  return await apiCall(searchMoviesEndpoint(movieName))
+}
 export {
   fetchTrending,
   fetchTopRated,
@@ -98,5 +104,6 @@ export {
   fetchMovieCreditsbyID,
   fetchSimilarMoview,
   fetchPersonData,
-  fetchPersonMoviesData
+  fetchPersonMoviesData,
+  fetchSearchedFilmByName
 };
