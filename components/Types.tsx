@@ -27,6 +27,9 @@
     title: string;
     showSeeAll:boolean
   }
+  export interface PersonMovieListType{
+    cast:MovieType[];
+  }
   export type RootStackParamList = {
     MovieDetails: any; // Define the route and the parameters it expects
     Person:PersonType;

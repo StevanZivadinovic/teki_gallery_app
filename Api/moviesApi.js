@@ -34,6 +34,9 @@ const similarMoviesEndpoint = (id) => {
 const getPersonDataEndpoint = (personId)=>{
   return `${base}person/${personId}`;
 }
+const personsMoviesEndpoint = (personId)=>{
+  return `${base}person/${personId}/movie_credits`
+}
 
 const apiCall = async (url) => {
   console.log("Fetching URL:", url);
@@ -78,6 +81,9 @@ const fetchSimilarMoview = async (id) => {
 const fetchPersonData = async (id)=>{
   return await apiCall(getPersonDataEndpoint(id));
 }
+const fetchPersonMoviesData = async (id)=>{
+  return await apiCall(personsMoviesEndpoint(id))
+}
 export {
   fetchTrending,
   fetchTopRated,
@@ -91,5 +97,6 @@ export {
   fetchMovieDetailsbyID,
   fetchMovieCreditsbyID,
   fetchSimilarMoview,
-  fetchPersonData
+  fetchPersonData,
+  fetchPersonMoviesData
 };

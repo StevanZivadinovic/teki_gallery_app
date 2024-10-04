@@ -2,7 +2,7 @@ import { Header } from "@/components/Header";
 import React, { useEffect, useState } from "react";
 import { Dimensions, Image, Platform, SafeAreaView, ScrollView, Text, View } from "react-native";
 import { RouteProp, useRoute } from "@react-navigation/native";
-import { RootStackParamList } from "@/components/Types";
+import { MovieType, RootStackParamList } from "@/components/Types";
 import MovieList from "@/components/MovieList";
 import { similar } from "@/assets/fetchedImages";
 import Loading from "@/components/Loading";
@@ -14,9 +14,9 @@ const Person = () => {
 
   const route = useRoute<RouteProp<RootStackParamList, "Person">>();
   const person = route.params;
+  const {personDetailsByID,personMoviesByID, loading }=usePersonDetails(person.id);
   const os = Platform.OS
-  const {personDetailsByID, loading }=usePersonDetails(person.id);
-console.log(personDetailsByID)
+console.log(personMoviesByID)
 const imageSource =(item: any) => {
   return item?.profile_path ? {uri:image500(item?.profile_path)} : require('./../assets/images/avatar.png')
 };
@@ -78,7 +78,7 @@ const gender = personDetailsByID?.gender === 2 ? 'Male' : personDetailsByID?.gen
           <Text className="text-white text-xl mt-6">Biography</Text>
           <Text className="my-5 text-neutral-400">{personDetailsByID?.biography}</Text>
         </View>
-        {/* <MovieList data={filmographyData} showSeeAll={false} title="Filmography"/> */}
+        <MovieList data={personMoviesByID?.cast as Array<MovieType>} showSeeAll={false} title="Filmography"/>
       </SafeAreaView>
     </ScrollView>
   );
