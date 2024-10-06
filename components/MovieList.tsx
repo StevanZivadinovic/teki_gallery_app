@@ -9,7 +9,7 @@ import { image500 } from "@/Api/moviesApi";
 const MovieList = ({ data, title, showSeeAll }: MovieListType) => {
   let { width, height } = Dimensions.get("window");
   const imageSource =(item: any) => {
-    return item?.backdrop_path ? {uri:image500(item?.backdrop_path)} : require('./../assets/images/sv_jovan.jpg')
+    return item?.backdrop_path ? {uri:image500(item?.backdrop_path)} : require('./../assets/images/no_movie.png')
   };
   const imageName =(item: MovieType)=> item.title.length>14 ? item.title.slice(0,14) + '..':item.title;
   return (

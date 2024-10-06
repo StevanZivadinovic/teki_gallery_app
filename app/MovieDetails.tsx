@@ -32,7 +32,6 @@ export default function MovieDetails() {
   const insets = useSafeAreaInsets();
   const [favorite, setFavorite] = useState(false);
   const [loading, setLoading] = useState(true)
-  
   useEffect(() => {
     setTimeout(() => {
       setLoading(false)
@@ -40,7 +39,7 @@ export default function MovieDetails() {
   }, [])
   const {moviesDetailsByID,moviesCreditsByID, similarMoviesByID}:any = useMoviesDetails(item?.id)
   const imageSource =(item: any) => {
-    return item?.backdrop_path ? {uri:image500(item?.backdrop_path)} : require('./../assets/images/sv_jovan.jpg')
+    return item?.backdrop_path ? {uri:image500(item?.backdrop_path)} : require('./../assets/images/no_movie.png')
   };
 
   return (

@@ -16,10 +16,10 @@ import {
 import {debounce} from 'lodash'
 import { XMarkIcon } from "react-native-heroicons/outline";
 import { fetchSearchedFilmByName, image500 } from "@/Api/moviesApi";
-import { MovieType } from "@/components/Types";
+import { MovieType, RootStackParamList } from "@/components/Types";
 
 const SearchScreen = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<RootStackParamList>();
   const os = Platform.OS;
   let {height, width} = useWindowDimensions()
   const [searchedMovies, setSearchedMovies] = useState<MovieType[]>();
@@ -34,7 +34,6 @@ const SearchScreen = () => {
     if(value && value.length>2){
       fetchSearchedFilmByName(value)
       .then((data)=>{
-        console.log(data);
         setSearchedMovies(data)
         setLoading(false)
         
@@ -81,7 +80,7 @@ const SearchScreen = () => {
         {searchedMovies && searchedMovies.length>0 ?
           searchedMovies?.map((a,i)=>{
           return(
-            <View className="mt-6" key={i}>
+            <TouchableOpacity className="mt-6" key={i} onPress={()=>{navigation.navigate('MovieDetails', a)}}>
             <Image
             source={imageSource(a)}
             className="rounded-lg"
@@ -91,7 +90,7 @@ const SearchScreen = () => {
             }}
             />
             <Text className="text-neutral-200 mt-1">{a.title.length > 14 ? a.title.slice(0,20) + '...' : a.title}</Text>
-            </View>
+            </TouchableOpacity>
           )
           }) : 
           <View className="mt-20 self-center mx-auto">

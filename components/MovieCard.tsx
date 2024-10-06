@@ -1,5 +1,4 @@
-import { image185, image342, image500 } from "@/Api/moviesApi";
-import { imageMap } from "@/assets/fetchedImages";
+import { image500 } from "@/Api/moviesApi";
 import { Dimensions, Image, TouchableWithoutFeedback } from "react-native";
 interface MovieCardProps {
   item: any; 
@@ -13,7 +12,7 @@ interface MovieType {
 
 export const MovieCard: React.FC<MovieCardProps>  = ({item, handleClick}) => {
   let { width, height } = Dimensions.get("window");
-  const imageSource = {uri:image500(item.backdrop_path) || require('./../assets/images/sv_jovan.jpg')};
+  const imageSource = {uri:image500(item.backdrop_path) || require('./../assets/images/no_movie.png')};
     return (
       <TouchableWithoutFeedback onPress={()=>{handleClick(item)}}>
         <Image

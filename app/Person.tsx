@@ -15,8 +15,7 @@ const Person = () => {
   const route = useRoute<RouteProp<RootStackParamList, "Person">>();
   const person = route.params;
   const {personDetailsByID,personMoviesByID, loading }=usePersonDetails(person.id);
-  const os = Platform.OS
-console.log(personMoviesByID)
+  const os = Platform.OS;
 const imageSource =(item: any) => {
   return item?.profile_path ? {uri:image500(item?.profile_path)} : require('./../assets/images/avatar.png')
 };

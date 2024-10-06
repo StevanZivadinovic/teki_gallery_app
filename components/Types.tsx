@@ -31,7 +31,9 @@
     cast:MovieType[];
   }
   export type RootStackParamList = {
-    MovieDetails: any; // Define the route and the parameters it expects
+    goBack(): unknown;
+    navigate(arg0: string,MovieDetails: any): unknown;
+    MovieDetails: any; 
     Person:PersonType;
   };
   
