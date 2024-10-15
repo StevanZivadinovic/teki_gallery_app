@@ -15,6 +15,7 @@ export const MovieCard: React.FC<MovieCardProps>  = ({item, handleClick}) => {
   const imageSource = {uri:image500(item.backdrop_path) || require('./../assets/images/no_movie.png')};
     return (
       <TouchableWithoutFeedback onPress={()=>{handleClick(item)}}>
+        
         <Image
           source={imageSource} 
           style={{

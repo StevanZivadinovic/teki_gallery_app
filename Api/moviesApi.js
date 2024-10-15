@@ -42,7 +42,6 @@ const searchMoviesEndpoint = (filmName)=>{
 }
 
 const apiCall = async (url) => {
-  console.log("Fetching URL:", url);
   try {
     const response = await fetch(url, options);
     if (!response.ok) {
