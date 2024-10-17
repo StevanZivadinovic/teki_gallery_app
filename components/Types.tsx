@@ -9,6 +9,10 @@
     title: string;
     url: string;
   }
+  export interface MovieCardProps {
+    item: any; 
+    handleClick: (item: MovieType) => void;
+  }
 
   export interface PersonType{
     id:number,

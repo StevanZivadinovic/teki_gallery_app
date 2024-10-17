@@ -27,7 +27,7 @@ export const TrendingMovies: React.FC<TrendingMoviesProps> = ({ data }) => {
         data={data}
         //@ts-ignore
         renderItem={renderItem}
-        sliderWidth={width}
+        sliderWidth={width} 
         itemWidth={width * 0.62}
         useScrollView={true}
         firstItem={2}
