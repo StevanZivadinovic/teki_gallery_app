@@ -1,7 +1,14 @@
-  import { NativeStackNavigationProp } from "react-native-screens/lib/typescript/native-stack/types";
+  import { FetchNextPageOptions, InfiniteData, InfiniteQueryObserverResult } from "@tanstack/react-query";
+import { Dispatch, SetStateAction } from "react";
+import { NativeStackNavigationProp } from "react-native-screens/lib/typescript/native-stack/types";
 
   export interface TrendingMoviesProps {
-    data: MovieType[];
+    navigation:any;
+    data: any;
+    fetchNextTrendingPage:(options?: FetchNextPageOptions | undefined) => Promise<InfiniteQueryObserverResult<InfiniteData<any, unknown>, Error>> ;
+    hasNextTrendingPage:any;
+    // pageNumbersTrending:number;
+    // setPageNumbersTrending:Dispatch<SetStateAction<number>>
   }
 
   export interface MovieType {
@@ -27,6 +34,7 @@
   }
 
   export interface MovieListType {
+    navigation:any;
     data: MovieType[];
     title: string;
     showSeeAll:boolean

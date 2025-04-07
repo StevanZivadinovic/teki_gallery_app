@@ -1,5 +1,4 @@
-import {theme } from "@/style";
-import React from "react";
+import theme from "@/style";
 import { View } from "react-native";
 import * as Progress from "react-native-progress";
 
@@ -9,7 +8,7 @@ const Loading = () => {
       <Progress.Circle
         size={60}
         indeterminate={true}
-        color={theme.text}
+        color={theme?.text}
         thickness={1}
         borderWidth={5}
         indeterminateAnimationDuration={1000}

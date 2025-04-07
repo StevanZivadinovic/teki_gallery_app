@@ -1,52 +1,61 @@
-
 import { StatusBar } from 'expo-status-bar';
 import { View, Text, Platform, ScrollView, Pressable } from 'react-native';
-import { Bars3CenterLeftIcon, MagnifyingGlassIcon } from "react-native-heroicons/outline";
 import { SafeAreaView } from 'react-native-safe-area-context';
-import {styles} from './../style/index'
-import { TrendingMovies } from '@/components/TrendingMovies';
+import styles from '@/style';
 import MovieList from '@/components/MovieList';
-import { toprated, trending, upcoming } from '@/assets/fetchedImages';
-import { useRouter } from 'expo-router';
-import { useEffect, useState } from 'react';
+import { useNavigation, useRouter } from 'expo-router';
 import Loading from '@/components/Loading';
-import { fetchTrending } from "./../Api/moviesApi";
 import useMovies from '@/hooks/useMovies';
+import { useInfiniteQuery } from '@tanstack/react-query';
+import  fetchTrending from '@/Api/moviesApi';
+import { TrendingMovies } from '@/components/TrendingMovies';
+import { ScreenNavigationPropType } from '@/components/Types';
+
 export default function App() {
-
-  const ios = Platform.OS =='ios'
+  const ios = Platform.OS === 'ios';
   const navigate = useRouter();
+  const { topRatedData, upcomingData } = useMovies();
 
-  const { loading, trendingData, topRatedData, upcomingData } = useMovies();
+  const navigation = useNavigation<ScreenNavigationPropType>();
+  const {
+    data: trendingData,
+    isLoading: trendingIsLoading,
+    fetchNextPage: fetchNextTrendingPage,
+    hasNextPage: hasNextTrendingPage,
+  } = useInfiniteQuery({
+    queryKey: ['popularMovies'],
+    queryFn: ({ pageParam }) => fetchTrending(pageParam),
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) =>  lastPage.page < lastPage.total_pages ? lastPage.page + 1 : undefined,
+    
+
+  });
+console.log(trendingData?.pages?.flat()?.length)
+  if (trendingIsLoading) {
+    return <Loading />;
+  }
+ 
   return (
-   
-  loading ? <Loading/> : <View className='flex-1 bg-neutral-800'>
-    <SafeAreaView className={ios ? '-mb-2':'mb-3'}>
-      <StatusBar style='light'/>
+    <View className='flex-1 bg-neutral-800'>
+      <SafeAreaView className={ios ? '-mb-2' : 'mb-3'}>
+        <StatusBar style='light' />
         <View className='flex-row justify-between items-center mx-4'>
-        <Bars3CenterLeftIcon color='white' size={30} strokeWidth={2}/>
-        <Text className='text-3xl text-white font-bold'>
-         <Text style={styles.text}>M</Text>ovbeby</Text>  
-         <Pressable onPress={()=>{navigate.navigate('/SearchScreen')}}>
-        <MagnifyingGlassIcon color='white' size={30} strokeWidth={2}/>
-         </Pressable>
+          {/* <Bars3CenterLeftIcon color='white' size={30} strokeWidth={2} /> */}
+          <Text className='text-3xl text-white font-bold'>
+            <Text style={styles?.text}>M</Text>ovbeby
+          </Text>
+          <Pressable onPress={() => { navigate.navigate('/SearchScreen'); }}>
+            {/* <MagnifyingGlassIcon color='white' size={30} strokeWidth={2} /> */}
+          </Pressable>
         </View>
-        </SafeAreaView>
+      </SafeAreaView>
 
-        <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{paddingBottom:10}}
-        >
-          {/* trending movies in carousel */}
-          <TrendingMovies data={trendingData}/>
-          {/* upcoming movies */}
-          <MovieList data={upcomingData} title='Upcoming Movies' showSeeAll={true}/>
-          {/* top rated movies */}
-          <MovieList data={topRatedData} title='Top rated movies' showSeeAll={true}/>
-
-        </ScrollView>
-   </View>
+      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 10 }}>
+        
+        <TrendingMovies navigation={navigation} data={trendingData?.pages?.flat()} fetchNextTrendingPage={fetchNextTrendingPage} hasNextTrendingPage={hasNextTrendingPage}/>
+        <MovieList navigation={navigation} data={upcomingData} title='Upcoming Movies' showSeeAll={true} />
+        <MovieList navigation={navigation} data={topRatedData} title='Top rated movies' showSeeAll={true} />
+      </ScrollView>
+    </View>
   );
 }
-
-

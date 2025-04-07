@@ -10,7 +10,7 @@ const options = {
   },
 };
 const base = "https://api.themoviedb.org/3/";
-const popular = `${base}movie/popular?language=en-US&page=1`;
+const popular =(pageNumber)=> `${base}movie/popular?language=en-US&page=${pageNumber}`;
 const topRated = `${base}movie/top_rated?language=en-US&page=1`;
 const upcoming = `${base}movie/upcoming?language=en-US&page=1`;
 
@@ -59,8 +59,8 @@ const apiCall = async (url) => {
   }
 };
 
-const fetchTrending = async () => {
-  return await apiCall(popular);
+const fetchTrending = async (pageParam = 1) => {
+  return await apiCall(popular(pageParam));
 };
 const fetchTopRated = async () => {
   return await apiCall(topRated);

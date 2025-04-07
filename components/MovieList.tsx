@@ -1,5 +1,4 @@
-import { styles } from "@/style";
-import React from "react";
+import styles  from "@/style";
 import {
   Dimensions,
   Image,
@@ -9,15 +8,12 @@ import {
   View,
 } from "react-native";
 import { TouchableWithoutFeedback } from "react-native";
-import { MovieListType, MovieType, ScreenNavigationPropType } from "./Types";
-import { router } from "expo-router";
-import { image500 } from "@/Api/moviesApi";
-import { useNavigation } from "@react-navigation/native";
+import { MovieListType } from "./Types";
 import { imageName, imageSource } from "@/helperFunctions/global";
 
-const MovieList = ({ data, title, showSeeAll }: MovieListType) => {
+const MovieList = ({ navigation,data, title, showSeeAll }: MovieListType) => {
   let { width, height } = Dimensions.get("window");
-  const navigation = useNavigation<ScreenNavigationPropType>();
+ 
 
   const handleClick = (item: any) => {
     navigation.navigate("MovieDetails", item);
@@ -32,7 +28,7 @@ const MovieList = ({ data, title, showSeeAll }: MovieListType) => {
           }}
         >
           {showSeeAll && (
-            <Text className="text-lg" style={styles.text}>
+            <Text className="text-lg" style={styles?.text}>
               See all
             </Text>
           )}

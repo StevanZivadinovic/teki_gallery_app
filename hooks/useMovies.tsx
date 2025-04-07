@@ -1,21 +1,19 @@
 // useMovies.js
 import { useState, useEffect } from 'react';
-import { fetchTrending, fetchTopRated, fetchUpcoming, fetchMovieDetailsbyID } from './../Api/moviesApi';
+import { fetchTrending, fetchTopRated, fetchUpcoming } from './../Api/moviesApi';
 
 const useMovies = () => {
   const [loading, setLoading] = useState(true);
-  const [trendingData, setTrendingData] = useState([]);
   const [topRatedData, setTopRatedData] = useState([]);
   const [upcomingData, setUpcomingData] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const trending = await fetchTrending();
         const topRated = await fetchTopRated();
         const upcoming = await fetchUpcoming();
 
-        setTrendingData(trending);
+        // setTrendingData((prevTrendingData:any)=>[...prevTrendingData, ...trending]);
         setTopRatedData(topRated);
         setUpcomingData(upcoming);
       
@@ -29,7 +27,7 @@ const useMovies = () => {
     fetchData();
   }, []);
 
-  return { loading, trendingData, topRatedData, upcomingData };
+  return { loading, topRatedData, upcomingData };
 };
 
 export default useMovies;
