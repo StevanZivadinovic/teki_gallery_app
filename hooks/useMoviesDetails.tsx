@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { fetchMovieCreditsbyID, fetchMovieDetailsbyID, fetchSimilarMoview } from "./../Api/moviesApi";
+import { fetchMovieCreditsbyID, fetchMovieDetailsbyID, fetchSimilarMovies } from "./../Api/moviesApi";
 
 const useMoviesDetails = (id?: number) => { 
   const [moviesDetailsByID, setMoviesDetailsByID] = useState(null); 
@@ -19,7 +19,7 @@ const useMoviesDetails = (id?: number) => {
           const moviesCreditsByIDData = await fetchMovieCreditsbyID(id)
           setMoviesCreditsByID(moviesCreditsByIDData)
 
-          const similarMoviesByIDData = await fetchSimilarMoview(id)
+          const similarMoviesByIDData = await fetchSimilarMovies(id)
           setSimilarMoviesByID(similarMoviesByIDData)
         }
       } catch (err) {

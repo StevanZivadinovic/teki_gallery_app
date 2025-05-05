@@ -1,7 +1,6 @@
-import { imageMap, similar } from "@/assets/fetchedImages";
 import Loading from "@/components/Loading";
 import { useNavigation } from "expo-router";
-import React, { useCallback, useEffect, useState } from "react";
+import { SetStateAction, useCallback, useEffect, useState } from "react";
 import {
   Image,
   Platform,
@@ -15,7 +14,9 @@ import {
 } from "react-native";
 import {debounce} from 'lodash'
 import { XMarkIcon } from "react-native-heroicons/outline";
-import { fetchSearchedFilmByName, image500 } from "@/Api/moviesApi";
+import  fetchSearchedFilmByName  from "@/Api/moviesApi";
+import  image500  from "@/Api/moviesApi";
+
 import { MovieType, RootStackParamList } from "@/components/Types";
 
 const SearchScreen = () => {
@@ -33,12 +34,12 @@ const SearchScreen = () => {
     setLoading(true)
     if(value && value.length>2){
       fetchSearchedFilmByName(value)
-      .then((data)=>{
+      .then((data: SetStateAction<MovieType[] | undefined>)=>{
         setSearchedMovies(data)
         setLoading(false)
         
       })
-      .catch((err)=>{
+      .catch((err: any)=>{
         console.log(err);
         setLoading(false)
       })
@@ -47,6 +48,7 @@ const SearchScreen = () => {
       setLoading(false)
     }
   }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleTextDebounce = useCallback(debounce(handleSearch,400),[])
   const imageSource =(item: any) => {
     return item?.backdrop_path ? {uri:image500(item?.backdrop_path)} : require('./../assets/images/avatar.png')

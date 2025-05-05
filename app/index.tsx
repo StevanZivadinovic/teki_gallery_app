@@ -1,7 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { View, Text, Platform, ScrollView, Pressable } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import styles from '@/style';
 import MovieList from '@/components/MovieList';
 import { useNavigation, useRouter } from 'expo-router';
 import Loading from '@/components/Loading';
@@ -10,7 +9,7 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import  fetchTrending from '@/Api/moviesApi';
 import { TrendingMovies } from '@/components/TrendingMovies';
 import { ScreenNavigationPropType } from '@/components/Types';
-
+import './../tailwind.css'
 export default function App() {
   const ios = Platform.OS === 'ios';
   const navigate = useRouter();
@@ -30,7 +29,7 @@ export default function App() {
     
 
   });
-console.log(trendingData?.pages?.flat()?.length)
+
   if (trendingIsLoading) {
     return <Loading />;
   }
@@ -41,8 +40,8 @@ console.log(trendingData?.pages?.flat()?.length)
         <StatusBar style='light' />
         <View className='flex-row justify-between items-center mx-4'>
           {/* <Bars3CenterLeftIcon color='white' size={30} strokeWidth={2} /> */}
-          <Text className='text-3xl text-white font-bold'>
-            <Text style={styles?.text}>M</Text>ovbeby
+          <Text className='text-3xl text-white font-bold' style={{ flex: 1, backgroundColor: '#2D2D2D' }}>
+            <Text style={{ flex: 1, backgroundColor: '#2D2D2D' }} >M</Text>ovbeby
           </Text>
           <Pressable onPress={() => { navigate.navigate('/SearchScreen'); }}>
             {/* <MagnifyingGlassIcon color='white' size={30} strokeWidth={2} /> */}

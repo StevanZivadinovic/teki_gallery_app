@@ -76,7 +76,7 @@ const fetchMovieDetailsbyID = async (id) => {
 const fetchMovieCreditsbyID = async (id) => {
   return  await apiCall(movieCreditsEndpoint(id));
 };
-const fetchSimilarMoview = async (id) => {
+const fetchSimilarMovies = async (id) => {
   return  await apiCall(similarMoviesEndpoint(id));
 };
 
@@ -101,7 +101,7 @@ export {
   similarMoviesEndpoint,
   fetchMovieDetailsbyID,
   fetchMovieCreditsbyID,
-  fetchSimilarMoview,
+  fetchSimilarMovies,
   fetchPersonData,
   fetchPersonMoviesData,
   fetchSearchedFilmByName

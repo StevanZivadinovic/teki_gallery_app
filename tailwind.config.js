@@ -7,10 +7,10 @@ module.exports = {
     './screens/**/*.{js,jsx,ts,tsx}', 
     './assets/**/*.{js,jsx,ts,tsx}',
   ],
+  presets: [require("nativewind/preset")],
   theme: {
     extend: {
     },
   },
   plugins: [],
 }
-

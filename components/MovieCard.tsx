@@ -1,4 +1,4 @@
-import { image500 } from "@/Api/moviesApi";
+import  image500  from "@/Api/moviesApi";
 import useMoviesDetails from "@/hooks/useMoviesDetails";
 import { Dimensions, Image, TouchableWithoutFeedback, View, Text, StyleSheet } from "react-native";
 import { MovieCardProps } from "./Types";
@@ -9,7 +9,7 @@ export const MovieCard: React.FC<MovieCardProps> = ({ item, handleClick }) => {
   let { width, height } = Dimensions.get("window");
   const imageSource = { uri: image500(item?.backdrop_path) || require('./../assets/images/no_movie.png') };
   const {moviesDetailsByID}:any=useMoviesDetails(item?.id)
-  // console.log(moviesDetailsByID, "DETAILS")
+
   return (
     <TouchableWithoutFeedback onPress={() => { handleClick(item) }} key={item?.id}>
       <View className="relative"> 

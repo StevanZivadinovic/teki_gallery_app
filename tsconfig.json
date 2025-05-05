@@ -11,10 +11,14 @@
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "isolatedModules": true,
-    "types": ["expo"],
+    "types": [
+      "expo"
+    ],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"]
+      "@/*": [
+        "./*"
+      ]
     }
   },
   "include": [
@@ -22,5 +26,7 @@
     "**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts",
-  ]
+    "nativewind-env.d.ts"
+  ],
+  "extends": "expo/tsconfig.base"
 }
