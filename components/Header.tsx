@@ -1,6 +1,6 @@
 import { styles, theme } from '@/style';
 import {  useRouter } from 'expo-router';
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { TouchableOpacity, View } from 'react-native';
 import { ChevronLeftIcon, HeartIcon } from 'react-native-heroicons/outline';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';

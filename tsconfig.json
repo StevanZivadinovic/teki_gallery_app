@@ -27,6 +27,6 @@
     ".expo/types/**/*.ts",
     "expo-env.d.ts",
     "nativewind-env.d.ts"
-  ],
+, "Api/moviesApi.js"  ],
   "extends": "expo/tsconfig.base"
 }

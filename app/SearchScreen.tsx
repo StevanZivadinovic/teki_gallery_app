@@ -14,8 +14,8 @@ import {
 } from "react-native";
 import {debounce} from 'lodash'
 import { XMarkIcon } from "react-native-heroicons/outline";
-import  fetchSearchedFilmByName  from "@/Api/moviesApi";
-import  image500  from "@/Api/moviesApi";
+import  {fetchSearchedFilmByName} from '@/Api/moviesApi';
+import  {image500}  from "@/Api/moviesApi";
 
 import { MovieType, RootStackParamList } from "@/components/Types";
 
@@ -44,6 +44,7 @@ const SearchScreen = () => {
         setLoading(false)
       })
     }else{
+      console.log('ovde')
       setSearchedMovies([])
       setLoading(false)
     }

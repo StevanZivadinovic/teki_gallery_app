@@ -1,5 +1,4 @@
   import { FetchNextPageOptions, InfiniteData, InfiniteQueryObserverResult } from "@tanstack/react-query";
-import { Dispatch, SetStateAction } from "react";
 import { NativeStackNavigationProp } from "react-native-screens/lib/typescript/native-stack/types";
 
   export interface TrendingMoviesProps {

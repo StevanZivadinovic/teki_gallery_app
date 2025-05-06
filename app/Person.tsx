@@ -3,7 +3,6 @@ import { Dimensions, Image, Platform, SafeAreaView, ScrollView, Text, View } fro
 import { RouteProp, useRoute } from "@react-navigation/native";
 import { MovieType, RootStackParamList, ScreenNavigationPropType } from "@/components/Types";
 import MovieList from "@/components/MovieList";
-import { similar } from "@/assets/fetchedImages";
 import Loading from "@/components/Loading";
 import usePersonDetails from "@/hooks/usePersonData";
 import { image500 } from "@/Api/moviesApi";
@@ -26,7 +25,9 @@ const gender = personDetailsByID?.gender === 2 ? 'Male' : personDetailsByID?.gen
       contentContainerStyle={{ paddingBottom: 20 }}
       className="flex-1 bg-neutral-900"
     >
+      <View className="py-[-1rem]">
       <Header />
+      </View>
       <View
         className="flex-row justify-center mt-8"
       >
@@ -36,7 +37,7 @@ const gender = personDetailsByID?.gender === 2 ? 'Male' : personDetailsByID?.gen
             shadowOffset: { width: 0, height: 5 },
             shadowOpacity: 1,
             shadowRadius: 40,
-            elevation: 10, // Elevation for Android
+            elevation: 10, 
           }}
           className="overflow-hidden rounded-full h-72 w-72"
         >
@@ -73,11 +74,11 @@ const gender = personDetailsByID?.gender === 2 ? 'Male' : personDetailsByID?.gen
         </View>
       </View>
       <SafeAreaView>
-        <View className={`${os=='android' ? 'mx-6':''}`}>
+        <View className={`${os==='android' ? 'mx-6':''}`}>
           <Text className="text-white text-xl mt-6">Biography</Text>
           <Text className="my-5 text-neutral-400">{personDetailsByID?.biography}</Text>
         </View>
-        <MovieList navigation={navigation} data={personMoviesByID?.cast as Array<MovieType>} showSeeAll={false} title="Filmography"/>
+        <MovieList navigation={navigation} data={personMoviesByID?.cast as MovieType[]} showSeeAll={false} title="Filmography"/>
       </SafeAreaView>
     </ScrollView>
   );

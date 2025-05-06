@@ -10,6 +10,7 @@ import  fetchTrending from '@/Api/moviesApi';
 import { TrendingMovies } from '@/components/TrendingMovies';
 import { ScreenNavigationPropType } from '@/components/Types';
 import './../tailwind.css'
+import { Bars3CenterLeftIcon, MagnifyingGlassIcon } from 'react-native-heroicons/outline';
 export default function App() {
   const ios = Platform.OS === 'ios';
   const navigate = useRouter();
@@ -39,12 +40,12 @@ export default function App() {
       <SafeAreaView className={ios ? '-mb-2' : 'mb-3'}>
         <StatusBar style='light' />
         <View className='flex-row justify-between items-center mx-4'>
-          {/* <Bars3CenterLeftIcon color='white' size={30} strokeWidth={2} /> */}
-          <Text className='text-3xl text-white font-bold' style={{ flex: 1, backgroundColor: '#2D2D2D' }}>
-            <Text style={{ flex: 1, backgroundColor: '#2D2D2D' }} >M</Text>ovbeby
+          <Bars3CenterLeftIcon color='white' size={30} strokeWidth={2} />
+          <Text className='text-3xl text-white text-center font-bold' style={{ flex: 1, backgroundColor: 'transparent'}}>
+            <Text style={{ flex: 1, backgroundColor: 'transparent', color:'orange' }} >M</Text>ovbeby
           </Text>
           <Pressable onPress={() => { navigate.navigate('/SearchScreen'); }}>
-            {/* <MagnifyingGlassIcon color='white' size={30} strokeWidth={2} /> */}
+            <MagnifyingGlassIcon color='white' size={30} strokeWidth={2} />
           </Pressable>
         </View>
       </SafeAreaView>

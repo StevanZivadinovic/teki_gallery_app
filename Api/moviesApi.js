@@ -54,7 +54,8 @@ const apiCall = async (url) => {
       return data;
     }
   } catch (err) {
-    console.error(err);
+    console.log('ovdeka sam')
+    console.error(err, "ERRor")
     return [];
   }
 };
@@ -87,6 +88,7 @@ const fetchPersonMoviesData = async (id)=>{
   return await apiCall(personsMoviesEndpoint(id))
 }
 const fetchSearchedFilmByName = async (movieName)=>{
+
   return await apiCall(searchMoviesEndpoint(movieName))
 }
 export {

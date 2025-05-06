@@ -9,27 +9,23 @@ import {
 import { RouteProp, useRoute } from "@react-navigation/native";
 import {
   SafeAreaView,
-  useSafeAreaInsets,
 } from "react-native-safe-area-context";
-import styles from "@/style";
-import theme from "@/style";
-
-import { ChevronLeftIcon, HeartIcon } from "react-native-heroicons/outline";
 import { Key, useEffect, useState } from "react";
-import { RootStackParamList } from "@/components/Types";
+import { MovieType, RootStackParamList, ScreenNavigationPropType } from "@/components/Types";
 import { LinearGradient } from "expo-linear-gradient";
 import MovieList from "@/components/MovieList";
-import { useRouter } from "expo-router";
+import { useNavigation, useRouter } from "expo-router";
 import Loading from "@/components/Loading";
 import { image500 } from "@/Api/moviesApi";
 import useMoviesDetails from "@/hooks/useMoviesDetails";
+import { Header } from "@/components/Header";
 
 export default function MovieDetails() {
   const { width, height } = Dimensions.get("window");
+  const navigation = useNavigation<ScreenNavigationPropType>();
   const route = useRoute<RouteProp<RootStackParamList, "MovieDetails">>();
   const router = useRouter();
   const item = route.params;
-  const insets = useSafeAreaInsets();
   const [favorite, setFavorite] = useState(false);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
@@ -39,7 +35,6 @@ export default function MovieDetails() {
   }, []);
   const { moviesDetailsByID, moviesCreditsByID, similarMoviesByID }: any =
     useMoviesDetails(item?.id);
-
   const imageSource = (item: any) => {
     return item?.backdrop_path
       ? { uri: image500(item?.backdrop_path) }
@@ -51,36 +46,13 @@ export default function MovieDetails() {
   ) : (
     <SafeAreaView className="flex-1 bg-neutral-900">
       <ScrollView
+        showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: 20 }}
         className="flex-1 bg-neutral-900"
       >
-        <View
-          style={{ flex: 1, marginTop: insets.top + 15 }}
-          className="z-20 w-full flex-row justify-between items-center px-4 absolute"
-        >
-          <TouchableOpacity
-            style={styles?.background}
-            className="rounded-xl p-1 flex"
-            onPress={() => {
-              router.back();
-            }}
-          >
-            <ChevronLeftIcon
-              size={28}
-              strokeWidth={2.5}
-              color="white"
-            ></ChevronLeftIcon>
-          </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => setFavorite(!favorite)}
-          className="rounded-xl p-1"
-        >
-          <HeartIcon
-            size={28}
-            fill={!favorite ? "white" : theme?.background}
-          ></HeartIcon>
-        </TouchableOpacity>
-        </View>
+        <View className="py-[-1rem] absolute">
+      <Header />
+      </View>
         <View className="">
           <Image
             source={imageSource(item)}
@@ -164,6 +136,7 @@ export default function MovieDetails() {
             )}
           </ScrollView>
         </View>
+        <MovieList navigation={navigation} data={similarMoviesByID as MovieType[]} showSeeAll={false} title="Similar movies"/>
       </ScrollView>
     </SafeAreaView>
   );
