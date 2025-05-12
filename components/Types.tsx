@@ -1,14 +1,6 @@
-  import { FetchNextPageOptions, InfiniteData, InfiniteQueryObserverResult } from "@tanstack/react-query";
 import { NativeStackNavigationProp } from "react-native-screens/lib/typescript/native-stack/types";
 
-  export interface TrendingMoviesProps {
-    navigation:any;
-    data: any;
-    fetchNextTrendingPage:(options?: FetchNextPageOptions | undefined) => Promise<InfiniteQueryObserverResult<InfiniteData<any, unknown>, Error>> ;
-    hasNextTrendingPage:any;
-    // pageNumbersTrending:number;
-    // setPageNumbersTrending:Dispatch<SetStateAction<number>>
-  }
+
 
   export interface MovieType {
     id: string;

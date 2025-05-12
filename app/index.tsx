@@ -5,34 +5,40 @@ import MovieList from '@/components/MovieList';
 import { useNavigation, useRouter } from 'expo-router';
 import Loading from '@/components/Loading';
 import useMovies from '@/hooks/useMovies';
-import { useInfiniteQuery } from '@tanstack/react-query';
-import  fetchTrending from '@/Api/moviesApi';
-import { TrendingMovies } from '@/components/TrendingMovies';
 import { ScreenNavigationPropType } from '@/components/Types';
 import './../tailwind.css'
 import { Bars3CenterLeftIcon, MagnifyingGlassIcon } from 'react-native-heroicons/outline';
+import { useEffect } from 'react';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from './../firebaseConfig';
 export default function App() {
   const ios = Platform.OS === 'ios';
   const navigate = useRouter();
-  const { topRatedData, upcomingData } = useMovies();
+  const { topRatedData, upcomingData,trandingData,loading } = useMovies();
 
   const navigation = useNavigation<ScreenNavigationPropType>();
-  const {
-    data: trendingData,
-    isLoading: trendingIsLoading,
-    fetchNextPage: fetchNextTrendingPage,
-    hasNextPage: hasNextTrendingPage,
-  } = useInfiniteQuery({
-    queryKey: ['popularMovies'],
-    queryFn: ({ pageParam }) => fetchTrending(pageParam),
-    initialPageParam: 1,
-    getNextPageParam: (lastPage) =>  lastPage.page < lastPage.total_pages ? lastPage.page + 1 : undefined,
-    
+ 
+   useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      console.log(user, 'OVDE')
+      if (user) {
+        console.log('ovde')
+        // navigate.replace('/'); // User is logged in
+      } else {
+        navigate.replace('/LoginScreen'); // Not logged in
+      }
+      // setLoading(false);
+    });
 
-  });
+    return () => unsubscribe();
+  }, [navigate]);
 
-  if (trendingIsLoading) {
+  if (loading) {
     return <Loading />;
+  }
+
+  const handleNavList = ()=>{
+    console.log('ovdeka sam')
   }
  
   return (
@@ -40,7 +46,7 @@ export default function App() {
       <SafeAreaView className={ios ? '-mb-2' : 'mb-3'}>
         <StatusBar style='light' />
         <View className='flex-row justify-between items-center mx-4'>
-          <Bars3CenterLeftIcon color='white' size={30} strokeWidth={2} />
+          <Bars3CenterLeftIcon color='white' size={30} strokeWidth={2} onPress={()=>{handleNavList()}}/>
           <Text className='text-3xl text-white text-center font-bold' style={{ flex: 1, backgroundColor: 'transparent'}}>
             <Text style={{ flex: 1, backgroundColor: 'transparent', color:'orange' }} >M</Text>ovbeby
           </Text>
@@ -51,8 +57,8 @@ export default function App() {
       </SafeAreaView>
 
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 10 }}>
-        
-        <TrendingMovies navigation={navigation} data={trendingData?.pages?.flat()} fetchNextTrendingPage={fetchNextTrendingPage} hasNextTrendingPage={hasNextTrendingPage}/>
+
+      <MovieList navigation={navigation} data={trandingData} title='Tranding Movies' showSeeAll={true} />
         <MovieList navigation={navigation} data={upcomingData} title='Upcoming Movies' showSeeAll={true} />
         <MovieList navigation={navigation} data={topRatedData} title='Top rated movies' showSeeAll={true} />
       </ScrollView>

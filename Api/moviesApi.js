@@ -54,7 +54,6 @@ const apiCall = async (url) => {
       return data;
     }
   } catch (err) {
-    console.log('ovdeka sam')
     console.error(err, "ERRor")
     return [];
   }
