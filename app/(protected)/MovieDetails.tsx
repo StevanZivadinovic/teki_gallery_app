@@ -136,7 +136,7 @@ export default function MovieDetails() {
             )}
           </ScrollView>
         </View>
-        <MovieList navigation={navigation} data={similarMoviesByID as MovieType[]} showSeeAll={false} title="Similar movies"/>
+        <MovieList navigation={navigation} data={similarMoviesByID as MovieType[]} title="Similar movies"/>
       </ScrollView>
     </SafeAreaView>
   );

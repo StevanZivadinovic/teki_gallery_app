@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import { View, Text, TextInput, Pressable, Alert } from 'react-native';
 import { auth } from './../firebaseConfig';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import {  signInWithEmailAndPassword } from 'firebase/auth';
 import { useRouter } from 'expo-router';
 
  function LoginScreen() {
@@ -14,6 +14,7 @@ const router = useRouter();
       await signInWithEmailAndPassword(auth, email, password);
       Alert.alert('Uspešno ste se ulogovali!');
        router.replace('/(protected)/Home'); // ili tvoja glavna stranica
+       
     } catch (error: any) {
       Alert.alert('Greška', error.message);
     }

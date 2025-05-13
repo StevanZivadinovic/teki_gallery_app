@@ -3,22 +3,32 @@ import { View, Text, TextInput, Pressable, Alert } from 'react-native';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from './../firebaseConfig';
 import { useRouter } from 'expo-router';
+import Loading from '@/components/Loading';
 
  function SignUpScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false)
   const router = useRouter();
 
   const handleSignUp = async () => {
+    setLoading(true)
     try {
       await createUserWithEmailAndPassword(auth, email, password);
       Alert.alert('Uspešno ste se registrovali!');
-      console.log('uspesno ste se registrovali');
-      router.push('/(protected)/Home');
+      console.log('uspesno ste se registrovali'); 
+        router.replace('/(protected)/Settings');
+   
+      setLoading(false)
     } catch (error: any) {
       Alert.alert('Greška', error.message);
+      setLoading(false)
     }
   };
+
+    if (loading) {
+    return <Loading />;
+  }
 
   return (
     <View className="flex-1 bg-neutral-900 px-6 justify-center">

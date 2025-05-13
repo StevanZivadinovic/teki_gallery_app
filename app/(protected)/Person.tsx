@@ -78,7 +78,7 @@ const gender = personDetailsByID?.gender === 2 ? 'Male' : personDetailsByID?.gen
           <Text className="text-white text-xl mt-6">Biography</Text>
           <Text className="my-5 text-neutral-400">{personDetailsByID?.biography}</Text>
         </View>
-        <MovieList navigation={navigation} data={personMoviesByID?.cast as MovieType[]} showSeeAll={false} title="Filmography"/>
+        <MovieList navigation={navigation} data={personMoviesByID?.cast as MovieType[]} title="Filmography"/>
       </SafeAreaView>
     </ScrollView>
   );

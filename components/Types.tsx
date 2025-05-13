@@ -28,7 +28,8 @@ import { NativeStackNavigationProp } from "react-native-screens/lib/typescript/n
     navigation:any;
     data: MovieType[];
     title: string;
-    showSeeAll:boolean
+    customHeight?:number,
+    customWidth?:number
   }
   export interface PersonMovieListType{
     cast:MovieType[];

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { fetchPersonData,fetchPersonMoviesData } from "./../Api/moviesApi";
-import { MovieType, PersonMovieListType, PersonType } from "@/components/Types";
+import { PersonMovieListType, PersonType } from "@/components/Types";
 
 const usePersonDetails = (id?: number) => { 
   const [personDetailsByID, setPersonDetailsByID] = useState<PersonType>();

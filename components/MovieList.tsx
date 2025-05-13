@@ -1,17 +1,15 @@
-import styles  from "@/style";
 import {
   Dimensions,
   Image,
   ScrollView,
   Text,
-  TouchableOpacity,
   View,
 } from "react-native";
 import { TouchableWithoutFeedback } from "react-native";
 import { MovieListType } from "./Types";
 import { imageName, imageSource } from "@/helperFunctions/global";
 
-const MovieList = ({ navigation,data, title, showSeeAll }: MovieListType) => {
+const MovieList = ({ navigation,data, title,customHeight,customWidth }: MovieListType) => {
   let { width, height } = Dimensions.get("window");
  
 
@@ -22,17 +20,6 @@ const MovieList = ({ navigation,data, title, showSeeAll }: MovieListType) => {
     <View>
       <View className="flex-row items-center justify-between mx-4">
         <Text className="text-xl text-white mb-5">{title}</Text>
-        <TouchableOpacity
-          onPress={() => {
-            console.log("Shows it all!");
-          }}
-        >
-          {showSeeAll && (
-            <Text className="text-lg" style={styles?.text}>
-              See all
-            </Text>
-          )}
-        </TouchableOpacity>
       </View>
       <View className="flex-row mx-6">
         <ScrollView
@@ -51,7 +38,7 @@ const MovieList = ({ navigation,data, title, showSeeAll }: MovieListType) => {
                 <View>
                   <Image
                     source={imageSource(item)}
-                    style={{ width: width * 0.25, height: height * 0.15 }}
+                    style={{ width: width * (customWidth ? customWidth : 0.25), height: height * (customHeight ? customHeight : 0.15) }}
                     className="rounded-xl mr-2"
                   ></Image>
                   <Text className="text-center text-neutral-300">
