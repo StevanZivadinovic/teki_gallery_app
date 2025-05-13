@@ -6,39 +6,44 @@ import { useNavigation, useRouter } from 'expo-router';
 import Loading from '@/components/Loading';
 import useMovies from '@/hooks/useMovies';
 import { ScreenNavigationPropType } from '@/components/Types';
-import './../tailwind.css'
+import './../../tailwind.css'
 import { Bars3CenterLeftIcon, MagnifyingGlassIcon } from 'react-native-heroicons/outline';
 import { useEffect } from 'react';
-import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from './../firebaseConfig';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
+import { auth } from '../../firebaseConfig';
 export default function App() {
   const ios = Platform.OS === 'ios';
   const navigate = useRouter();
   const { topRatedData, upcomingData,trandingData,loading } = useMovies();
 
   const navigation = useNavigation<ScreenNavigationPropType>();
- 
-   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      console.log(user, 'OVDE')
-      if (user) {
-        console.log('ovde')
-        // navigate.replace('/'); // User is logged in
-      } else {
-        navigate.replace('/LoginScreen'); // Not logged in
-      }
-      // setLoading(false);
-    });
+ useEffect(() => {
+  const unsubscribe = onAuthStateChanged(auth, (user) => {
+    if (user && navigate.canGoBack()) {
+      
+      navigate.replace('/(protected)/Home');
+    } else if (!user) {
+     
+      navigate.replace('/LoginScreen');
+    }
+  });
 
-    return () => unsubscribe();
-  }, [navigate]);
+  return () => unsubscribe();
+}, [navigate]);
+
 
   if (loading) {
     return <Loading />;
   }
 
-  const handleNavList = ()=>{
+  const handleNavList = async ()=>{
     console.log('ovdeka sam')
+     try {
+    await signOut(auth);
+    console.log("User logged out successfully");
+  } catch (error) {
+    console.error("Logout error:", error);
+  }
   }
  
   return (

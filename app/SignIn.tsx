@@ -13,7 +13,8 @@ import { useRouter } from 'expo-router';
     try {
       await createUserWithEmailAndPassword(auth, email, password);
       Alert.alert('Uspešno ste se registrovali!');
-      // router.replace('/');
+      console.log('uspesno ste se registrovali');
+      router.push('/(protected)/Home');
     } catch (error: any) {
       Alert.alert('Greška', error.message);
     }

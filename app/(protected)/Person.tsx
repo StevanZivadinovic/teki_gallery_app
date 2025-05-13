@@ -16,7 +16,7 @@ const navigation = useNavigation<ScreenNavigationPropType>();
   const {personDetailsByID,personMoviesByID, loading }=usePersonDetails(person.id);
   const os = Platform.OS;
 const imageSource =(item: any) => {
-  return item?.profile_path ? {uri:image500(item?.profile_path)} : require('./../assets/images/avatar.png')
+  return item?.profile_path ? {uri:image500(item?.profile_path)} : require('./../../assets/images/avatar.png')
 };
 const gender = personDetailsByID?.gender === 2 ? 'Male' : personDetailsByID?.gender === 1 ? 'Female' : 'unknown'
   return (

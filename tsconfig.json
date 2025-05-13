@@ -4,7 +4,8 @@
     "module": "ESNext",
     "jsx": "react-jsx",
     "strict": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler", // or "node16" or "nodenext", predthodno ovde je bila node opcija, a red ispod nije postojao
+    "customConditions": ["react-native"],
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "skipLibCheck": true,

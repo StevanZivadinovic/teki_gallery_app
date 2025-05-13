@@ -7,13 +7,13 @@ import { useRouter } from 'expo-router';
  function LoginScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const router = useRouter();
 
+const router = useRouter();
   const handleLogin = async () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       Alert.alert('Uspešno ste se ulogovali!');
-      // router.replace('/'); // ili tvoja glavna stranica
+       router.replace('/(protected)/Home'); // ili tvoja glavna stranica
     } catch (error: any) {
       Alert.alert('Greška', error.message);
     }

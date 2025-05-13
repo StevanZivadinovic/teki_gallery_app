@@ -1,4 +1,5 @@
-//MAIN LAYOUT
+//Protected layout
+
 import {
   DarkTheme,
   DefaultTheme,
@@ -9,7 +10,7 @@ import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import { useColorScheme } from "@/hooks/useColorScheme";
-import { AuthProvider } from "@/context/AuthContext";
+import ProtectedRoute from "./ProtectedRoute";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -17,7 +18,7 @@ SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({
-    SpaceMono: require("./../assets/fonts/SpaceMono-Regular.ttf"),
+    SpaceMono: require("../../assets/fonts/SpaceMono-Regular.ttf"),
   });
 
   useEffect(() => {
@@ -31,11 +32,12 @@ export default function RootLayout() {
   }
 
   return (
-    <AuthProvider>
+   
+        <ProtectedRoute>
       <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
         <Stack screenOptions={{ headerShown: false }} />
         {/* Let Expo Router auto-discover the screens */}
       </ThemeProvider>
-    </AuthProvider>
+        </ProtectedRoute>
   );
 }

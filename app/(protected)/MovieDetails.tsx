@@ -38,7 +38,7 @@ export default function MovieDetails() {
   const imageSource = (item: any) => {
     return item?.backdrop_path
       ? { uri: image500(item?.backdrop_path) }
-      : require("./../assets/images/no_movie.png");
+      : require("./../../assets/images/no_movie.png");
   };
 
   return loading ? (

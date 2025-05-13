@@ -52,7 +52,7 @@ const SearchScreen = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleTextDebounce = useCallback(debounce(handleSearch,400),[])
   const imageSource =(item: any) => {
-    return item?.backdrop_path ? {uri:image500(item?.backdrop_path)} : require('./../assets/images/avatar.png')
+    return item?.backdrop_path ? {uri:image500(item?.backdrop_path)} : require('./../../assets/images/avatar.png')
   };
   return (
       <ScrollView className={`bg-neutral-800 flex-1`}>
