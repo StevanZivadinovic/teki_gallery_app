@@ -3,7 +3,7 @@ import {  initializeAuth } from "firebase/auth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 // eslint-disable-next-line import/named
 import { getReactNativePersistence } from "firebase/auth";
-
+import { getDatabase } from 'firebase/database';
 // Your Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyC7ss5oDlPFghPpZ9a-XrCYLfE16WIyiLM",
@@ -22,5 +22,6 @@ const app = initializeApp(firebaseConfig);
 const auth = initializeAuth(app, {
   persistence: getReactNativePersistence(AsyncStorage),
 });
+const db = getDatabase(app);
 
-export { auth };
+export { auth,db };
