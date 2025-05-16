@@ -20,14 +20,17 @@ import { image500 } from "@/Api/moviesApi";
 import useMoviesDetails from "@/hooks/useMoviesDetails";
 import { Header } from "@/components/Header";
 
+
 export default function MovieDetails() {
   const { width, height } = Dimensions.get("window");
   const navigation = useNavigation<ScreenNavigationPropType>();
   const route = useRoute<RouteProp<RootStackParamList, "MovieDetails">>();
   const router = useRouter();
   const item = route.params;
+  
   const [favorite, setFavorite] = useState(false);
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
@@ -51,7 +54,7 @@ export default function MovieDetails() {
         className="flex-1 bg-neutral-900"
       >
         <View className="py-[-1rem] absolute">
-      <Header />
+      <Header type={'favoriteMovies'} itemData={item}/>
       </View>
         <View className="">
           <Image

@@ -14,6 +14,7 @@ const navigation = useNavigation<ScreenNavigationPropType>();
   const route = useRoute<RouteProp<RootStackParamList, "Person">>();
   const person = route.params;
   const {personDetailsByID,personMoviesByID, loading }=usePersonDetails(person.id);
+  console.log(personDetailsByID)
   const os = Platform.OS;
 const imageSource =(item: any) => {
   return item?.profile_path ? {uri:image500(item?.profile_path)} : require('./../../assets/images/avatar.png')
@@ -26,7 +27,7 @@ const gender = personDetailsByID?.gender === 2 ? 'Male' : personDetailsByID?.gen
       className="flex-1 bg-neutral-900"
     >
       <View className="py-[-1rem]">
-      <Header />
+      <Header type={'favoriteActors'} itemData={personDetailsByID}/>
       </View>
       <View
         className="flex-row justify-center mt-8"
