@@ -5,11 +5,13 @@ import { useAuth } from './../../context/AuthContext';
 import { Actor } from '@/types/actors';
 import { collection, onSnapshot} from 'firebase/firestore';
 import { handleRemove } from '@/helperFunctions/global';
+import { useNavigation } from 'expo-router';
 
 export default function FavoriteActors() {
   const { user } = useAuth();
   const [actors, setActors] = useState<Actor[]>([]);
-
+// If you have a typed stack, import and use it here instead of 'any'
+const navigation = useNavigation<any>();
  useEffect(() => {
    if (!user) return;
  
@@ -30,7 +32,9 @@ export default function FavoriteActors() {
  
    return () => unsubscribe();
  }, [user]);
-
+ const navigateToActor = (item: Actor) => {
+    navigation.navigate('Person',  item);
+  };
   return (
     <View className='flex-1'>
     <FlatList
@@ -39,7 +43,9 @@ export default function FavoriteActors() {
       className='bg-black pb-[20px] min-h-screen pt-[20px]'
       renderItem={({ item }) => (
         <View className="bg-neutral-900 rounded-2xl px-4 py-3 mx-4 my-2 border border-neutral-700 flex-row justify-between items-center">
-          <Text className="text-white text-base font-semibold">{item?.name}</Text>
+         <Pressable onPress={() => navigateToActor(item)} className="flex-1">
+            <Text className="text-white text-base font-semibold">{item?.name}</Text>
+          </Pressable>
           <Pressable
                         disabled={!item?.id || !user?.uid}
                         onPress={() => {
