@@ -1,14 +1,9 @@
 import { useState } from "react";
 import {FlatList, Text, View } from "react-native";
-// import Carousel from "react-native-snap-carousel";
 import { MovieCard } from "./MovieCard"; 
 import { TrendingMoviesProps } from "./Types";
-// import { useNavigation } from "@react-navigation/native";
 
 
-
-
-// const {height, width } = Dimensions.get("window");
 
 export const TrendingMovies: React.FC<TrendingMoviesProps> = ({ navigation,data,fetchNextTrendingPage, hasNextTrendingPage }) => {
   const [selectedId, setSelectedId] = useState<string>();
@@ -21,7 +16,6 @@ export const TrendingMovies: React.FC<TrendingMoviesProps> = ({ navigation,data,
     return <MovieCard key={index} item={item} handleClick={() => handleClick(item)}  />;
   };
   const handleEndReached = () => {
-    console.log('opali')
     if (hasNextTrendingPage) {
       fetchNextTrendingPage(); 
     }
@@ -37,20 +31,6 @@ export const TrendingMovies: React.FC<TrendingMoviesProps> = ({ navigation,data,
         extraData={selectedId}
         onEndReached={handleEndReached}
       />} 
-      {/* <Carousel
-      vertical={false}
-        layout={'default'}
-        data={data[0]}
-        //@ts-ignore
-        renderItem={renderItem}
-        sliderWidth={width} 
-        itemWidth={width * 0.62}
-        useScrollView={true}
-        firstItem={2}
-        loop={true}
-        slideStyle={{ display: "flex", alignItems: "center", justifyContent:'center' }}
-        onSnapToItem={handleSnapToItem}
-      /> */}
     </View>
   );
 };

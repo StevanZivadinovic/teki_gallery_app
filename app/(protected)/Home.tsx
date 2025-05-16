@@ -6,82 +6,113 @@ import { useNavigation, useRouter } from 'expo-router';
 import Loading from '@/components/Loading';
 import useMovies from '@/hooks/useMovies';
 import { ScreenNavigationPropType } from '@/components/Types';
-import './../../tailwind.css'
+import './../../tailwind.css';
 import { Bars3CenterLeftIcon, MagnifyingGlassIcon } from 'react-native-heroicons/outline';
 import { signOut } from 'firebase/auth';
 import { auth } from '../../firebaseConfig';
 import { useState } from 'react';
+
 export default function App() {
   const ios = Platform.OS === 'ios';
   const navigate = useRouter();
-  const { topRatedData, upcomingData,trandingData,loading } = useMovies();
-const [modalVisible, setModalVisible] = useState(false);
+  const { topRatedData, upcomingData, trandingData, loading } = useMovies();
+  const [modalVisible, setModalVisible] = useState(false);
   const navigation = useNavigation<ScreenNavigationPropType>();
+
   if (loading) {
     return <Loading />;
   }
 
-
-  
-    const handleLogout = async () => {
+  const handleLogout = async () => {
     await signOut(auth);
     setModalVisible(false);
   };
- 
+
   return (
-    <View className='flex-1 bg-neutral-800'>
+    <View className="flex-1 bg-neutral-900">
       <SafeAreaView className={ios ? '-mb-2' : 'mb-3'}>
-        <StatusBar style='light' />
-        <View className='flex-row justify-between items-center mx-4'>
-        
-          <Bars3CenterLeftIcon color='white' size={30} strokeWidth={2} onPress={() => setModalVisible(!modalVisible)}/>
-            <Modal
-        visible={modalVisible}
-        animationType="fade"
-        transparent
-        onRequestClose={() => setModalVisible(false)}
-      >
-        <View className="flex-1 justify-end bg-black/60">
-          <View className="bg-neutral-800 p-6 rounded-t-3xl space-y-4">
-            <Pressable onPress={() => {
-              setModalVisible(false);
-              navigate.push('/(protected)/Settings');
-            }}>
-              <Text className="text-white text-lg">⚙️ Podešavanja</Text>
-            </Pressable>
+        <StatusBar style="light" />
+        <View className="flex-row justify-between items-center mx-5 py-3 border-b border-neutral-700">
+          <Bars3CenterLeftIcon
+            color="white"
+            size={30}
+            strokeWidth={2}
+            onPress={() => setModalVisible(!modalVisible)}
+          />
 
-            <Pressable onPress={() => {
-              setModalVisible(false);
-              navigate.push('/(protected)/Favorites');
-            }}>
-              <Text className="text-white text-lg">⭐ Omiljeni filmovi i glumci</Text>
-            </Pressable>
+          <Modal
+            visible={modalVisible}
+            animationType="fade"
+            transparent
+            onRequestClose={() => setModalVisible(false)}
+          >
+            <View className="flex-1 justify-end bg-black/70">
+              <View className="bg-neutral-800 p-6 rounded-t-3xl space-y-6 shadow-lg">
+                <Pressable
+                  onPress={() => {
+                    setModalVisible(false);
+                    navigate.push('/(protected)/Settings');
+                  }}
+                >
+                  <Text className="text-white text-lg font-semibold">⚙️ Podešavanja</Text>
+                </Pressable>
 
-            <Pressable onPress={handleLogout}>
-              <Text className="text-red-400 text-lg">🚪 Odjavi se</Text>
-            </Pressable>
+                <Pressable
+                  onPress={() => {
+                    setModalVisible(false);
+                    navigate.push('/(protected)/Favorites');
+                  }}
+                >
+                  <Text className="text-white text-lg font-semibold">⭐ Omiljeni filmovi i glumci</Text>
+                </Pressable>
 
-            <Pressable onPress={() => setModalVisible(false)}>
-              <Text className="text-white text-center mt-4">Zatvori</Text>
-            </Pressable>
-          </View>
-        </View>
-      </Modal>
-          
-          <Text className='text-3xl text-white text-center font-bold' style={{ flex: 1, backgroundColor: 'transparent'}}>
-            <Text style={{ flex: 1, backgroundColor: 'transparent', color:'orange' }} >M</Text>ovbeby
+                <Pressable onPress={handleLogout}>
+                  <Text className="text-red-500 text-lg font-bold">🚪 Odjavi se</Text>
+                </Pressable>
+
+                <Pressable onPress={() => setModalVisible(false)} className="pt-4">
+                  <Text className="text-center text-white text-base opacity-70">Zatvori</Text>
+                </Pressable>
+              </View>
+            </View>
+          </Modal>
+
+          <Text
+            className="text-3xl font-extrabold text-white flex-1 text-center select-none"
+            style={{ backgroundColor: 'transparent' }}
+          >
+            <Text className="text-orange-500">M</Text>ovbeby
           </Text>
-          <Pressable onPress={() => { navigate.navigate('/SearchScreen'); }}>
-            <MagnifyingGlassIcon color='white' size={30} strokeWidth={2} />
+
+          <Pressable onPress={() => navigate.navigate('/SearchScreen')}>
+            <MagnifyingGlassIcon color="white" size={30} strokeWidth={2} />
           </Pressable>
         </View>
       </SafeAreaView>
 
-      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 10 }}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingBottom: 24 }}
+        className="px-1"
+      >
+        <MovieList
+  carousel3d
+  navigation={navigation}
+  data={trandingData}
+  title="Trending Movies"
+/>
 
-      <MovieList customHeight={0.25} customWidth={0.35} navigation={navigation} data={trandingData} title='Tranding Movies'  />
-        <MovieList navigation={navigation} data={upcomingData} title='Upcoming Movies'  />
-        <MovieList navigation={navigation} data={topRatedData} title='Top rated movies' />
+<MovieList
+  navigation={navigation}
+  data={upcomingData}
+  title="Upcoming Movies"
+/>
+
+<MovieList
+  navigation={navigation}
+  data={topRatedData}
+  title="Top Rated Movies"
+/>
       </ScrollView>
     </View>
   );

@@ -44,7 +44,6 @@ const SearchScreen = () => {
         setLoading(false)
       })
     }else{
-      console.log('ovde')
       setSearchedMovies([])
       setLoading(false)
     }

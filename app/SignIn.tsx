@@ -16,7 +16,6 @@ import Loading from '@/components/Loading';
     try {
       await createUserWithEmailAndPassword(auth, email, password);
       Alert.alert('Uspešno ste se registrovali!');
-      console.log('uspesno ste se registrovali'); 
         router.replace('/(protected)/Settings');
    
       setLoading(false)

@@ -7,13 +7,11 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useAuth } from '@/context/AuthContext';
 import { db } from '@/firebaseConfig';
 import { doc, setDoc, deleteDoc, getDoc} from "firebase/firestore";
+import { HeaderType } from '@/types/global';
 
-type Props = {
-  type: 'favoriteMovies' | 'favoriteActors'; // mora da se slaže sa strukturom u bazi
-  itemData: any;
-};
 
-export const Header = ({type, itemData }: Props) => {
+
+export const Header = ({type, itemData }: HeaderType) => {
   const insets = useSafeAreaInsets();
   const [favorite, setFavorite] = useState(false);
   const router = useRouter();
@@ -23,7 +21,7 @@ export const Header = ({type, itemData }: Props) => {
   ? doc(db, "users", user.uid, type, String(itemData?.id))
   : null;
 
-  // ✅ Provera da li je već omiljen
+   // Provera da li je već omiljen
   useEffect(() => {
     const checkFavorite = async () => {
       if (!itemRef) return;
@@ -35,7 +33,7 @@ export const Header = ({type, itemData }: Props) => {
     checkFavorite();
   }, [itemRef, user]);
 
-  // ✅ Dodaj / ukloni iz omiljenih
+  // Dodaj / ukloni iz omiljenih
   const toggleFavorite = async () => {
     if (!user || !itemRef) return;
 

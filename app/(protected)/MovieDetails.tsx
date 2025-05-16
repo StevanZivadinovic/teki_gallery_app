@@ -28,7 +28,6 @@ export default function MovieDetails() {
   const router = useRouter();
   const item = route.params;
   
-  const [favorite, setFavorite] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
