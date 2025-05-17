@@ -1,6 +1,8 @@
 import { image500 } from "@/Api/moviesApi";
 import { MovieType } from "@/components/Types";
 import { db } from "@/firebaseConfig";
+import i18n from "@/i18n";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { deleteDoc, doc } from "firebase/firestore";
 
 export const imageName = (item: MovieType) =>
@@ -31,4 +33,9 @@ export const imageSource = (item: any) => {
     } catch (error) {
       console.error("Error deleting favorite:", error);
     }
+  };
+
+   export const changeLanguage = async (lang: string) => {
+    await AsyncStorage.setItem("language", lang);
+    i18n.changeLanguage(lang);
   };

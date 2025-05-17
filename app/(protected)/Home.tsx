@@ -10,24 +10,43 @@ import './../../tailwind.css';
 import { Bars3CenterLeftIcon, MagnifyingGlassIcon } from 'react-native-heroicons/outline';
 import { signOut } from 'firebase/auth';
 import { auth } from '../../firebaseConfig';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import './../../i18n';
+import { useTranslation } from "react-i18next";
+import i18n from './../../i18n';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function App() {
+  const { t } = useTranslation();
+  const currentLanguage = i18n.language;
   const ios = Platform.OS === 'ios';
   const navigate = useRouter();
   const { topRatedData, upcomingData, trandingData, loading } = useMovies();
   const [modalVisible, setModalVisible] = useState(false);
   const navigation = useNavigation<ScreenNavigationPropType>();
 
-  if (loading) {
-    return <Loading />;
-  }
+  
+  useEffect(() => {
+    const loadLanguage = async () => {
+      const savedLanguage = await AsyncStorage.getItem("language");
+      console.log(currentLanguage)
+      if (savedLanguage) {
+        i18n.changeLanguage(savedLanguage);
+      }
+    };
+    loadLanguage();
+  }, [currentLanguage]);
+
 
   const handleLogout = async () => {
     await signOut(auth);
     setModalVisible(false);
   };
 
+
+  if (loading) {
+    return <Loading />;
+  }
   return (
     <View className="flex-1 bg-neutral-900">
       <SafeAreaView className={ios ? '-mb-2' : 'mb-3'}>
@@ -99,19 +118,19 @@ export default function App() {
   carousel3d
   navigation={navigation}
   data={trandingData}
-  title="Trending Movies"
+  title={t("TrendingMovies")}
 />
 
 <MovieList
   navigation={navigation}
   data={upcomingData}
-  title="Upcoming Movies"
+  title={t("UpcomingMovies")}
 />
 
 <MovieList
   navigation={navigation}
   data={topRatedData}
-  title="Top Rated Movies"
+  title={t("TopRatedMovies")}
 />
       </ScrollView>
     </View>

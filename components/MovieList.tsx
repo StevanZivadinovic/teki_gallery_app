@@ -37,51 +37,12 @@ const MovieList = ({
       <View className="mb-8">
         <Text className="text-3xl font-bold text-white mx-4 mb-4">{title}</Text>
         <Animated.FlatList
-        initialScrollIndex={-10}
-        initialNumToRender={1}
-        getItemLayout={(_, index) => ({
-          length: ITEM_WIDTH + ITEM_SPACING,
-          offset: (ITEM_WIDTH + ITEM_SPACING) * index,
-          index,
-        })}
+          initialNumToRender={2}
           data={data}
           keyExtractor={(item, index) => String(index)}
           horizontal
-          showsHorizontalScrollIndicator={false}
-          snapToInterval={ITEM_WIDTH}
-          decelerationRate="fast"
-          bounces={false}
-          contentContainerStyle={{
-            paddingLeft: 10,  
-          paddingRight: (width - ITEM_WIDTH) / 2,
-          }}
-          onScroll={Animated.event(
-            [{ nativeEvent: { contentOffset: { x: scrollX } } }],
-            { useNativeDriver: true }
-          )}
           scrollEventThrottle={16}
           renderItem={({ item, index }) => {
-            const inputRange = [
-              0,1
-            ];
-
-            const scale = scrollX.interpolate({
-              inputRange,
-              outputRange: [0, 1],
-              extrapolate: "clamp",
-            });
-
-            const opacity = scrollX.interpolate({
-              inputRange,
-              outputRange: [0, 1],
-              extrapolate: "clamp",
-            });
-
-            const translateY = scrollX.interpolate({
-              inputRange,
-              outputRange: [0, 1],
-              extrapolate: "clamp",
-            });
 
             return (
               <TouchableWithoutFeedback onPress={() => handleClick(item)}>
@@ -89,13 +50,11 @@ const MovieList = ({
                   style={{
                     width: ITEM_WIDTH,
                     marginHorizontal: 10,
-                    transform: [{ scale }, { translateY }],
-                    opacity,
                     shadowColor: "#000",
                     shadowOpacity: 0.3,
                     shadowOffset: { width: 0, height: 10 },
-                    shadowRadius: 20,
-                    borderRadius: 20,
+                    shadowRadius: 10,
+                    borderRadius: 10,
                     overflow: "hidden",
                     backgroundColor: "#111",
                   }}
