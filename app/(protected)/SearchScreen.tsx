@@ -18,8 +18,10 @@ import  {fetchSearchedFilmByName} from '@/Api/moviesApi';
 import  {image500}  from "@/Api/moviesApi";
 
 import { MovieType, RootStackParamList } from "@/components/Types";
+import { useTranslation } from "react-i18next";
 
 const SearchScreen = () => {
+  const {t}=useTranslation()
   const navigation = useNavigation<RootStackParamList>();
   const os = Platform.OS;
   let {height, width} = useWindowDimensions()
@@ -63,7 +65,7 @@ const SearchScreen = () => {
       >
         <TextInput
           onChangeText={handleTextDebounce}
-          placeholder="Search Movie"
+          placeholder={t("SearchMovie")}
           placeholderTextColor={"white"}
           className="text-white pl-6 tracking-wider text-left w-[80%] h-12" 
         />
@@ -77,7 +79,7 @@ const SearchScreen = () => {
         </TouchableOpacity>
       </View>
       {loading ? <Loading/> : <View className="mx-6">
-        <Text className="text-white">Results ({searchedMovies?.length})</Text>
+        <Text className="text-white">{t('Results')} ({searchedMovies?.length})</Text>
         <View className="flex-row flex-wrap justify-between">
         {searchedMovies && searchedMovies.length>0 ?
           searchedMovies?.map((a,i)=>{
@@ -104,7 +106,7 @@ const SearchScreen = () => {
             width:width*0.50
           }}
           />
-          <Text className="text-neutral-200 mt-1 text-xl text-center">There is no results...</Text>
+          <Text className="text-neutral-200 mt-1 text-xl text-center">{t("NoResultMessage")}...</Text>
        </View>
         
         }

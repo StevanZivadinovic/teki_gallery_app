@@ -2,10 +2,13 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import FavoriteActors from './FavoriteActors';
 import FavoriteMovies from './FavoriteMovies';
 import { View, Platform } from 'react-native';
+import { useTranslation } from 'react-i18next';
+
 
 const Tab = createMaterialTopTabNavigator();
 
 export default function Favorites() {
+  const {t}=useTranslation()
   return (
     <View className='min-h-screen'  style={{ flex: 1, paddingTop: Platform.OS === 'android' ? 40 : 0, backgroundColor: '#0f0f0f' }}>
       <Tab.Navigator
@@ -31,8 +34,8 @@ export default function Favorites() {
           },
         }}
       >
-        <Tab.Screen name="Glumci" component={FavoriteActors} />
-        <Tab.Screen name="Filmovi" component={FavoriteMovies} />
+        <Tab.Screen name={t("Actors")} component={FavoriteActors} />
+        <Tab.Screen name={t("Movies")} component={FavoriteMovies} />
       </Tab.Navigator>
     </View>
   );

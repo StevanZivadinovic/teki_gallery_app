@@ -1,5 +1,18 @@
 {
   "TrendingMovies":"Trending Movies",
   "UpcomingMovies":"Upcoming Movies",
-  "TopRatedMovies":"Top Rated Movies"
+  "TopRatedMovies":"Top Rated Movies",
+  "SelectLanguage":"Select Language",
+  "YourData":"Your data",
+  "HomePage":"Home Page",
+  "Settings":"Settings",
+  "FavoriteActorsMovies":"Favorite actors and movies",
+  "LogOut":"Logout",
+  "Close":"Close",
+  "Actors":"Actors",
+  "Movies":"Movies",
+  "Remove":"Remove",
+  "SearchMovie":"Search movie..",
+  "Results":"Results",
+  "NoResultMessage":"There is no results"
 }

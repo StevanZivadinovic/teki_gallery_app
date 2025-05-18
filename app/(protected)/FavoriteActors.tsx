@@ -6,10 +6,12 @@ import { Actor } from '@/types/actors';
 import { collection, onSnapshot} from 'firebase/firestore';
 import { handleRemove } from '@/helperFunctions/global';
 import { useNavigation } from 'expo-router';
+import { useTranslation } from 'react-i18next';
 
 export default function FavoriteActors() {
   const { user } = useAuth();
   const [actors, setActors] = useState<Actor[]>([]);
+  const {t}=useTranslation()
 // If you have a typed stack, import and use it here instead of 'any'
 const navigation = useNavigation<any>();
  useEffect(() => {
@@ -55,7 +57,7 @@ const navigation = useNavigation<any>();
                         }}
                       >
                         <Text className="text-orange-500 text-sm font-bold ml-4">
-                          Ukloni
+                          {t('Remove')}
                         </Text>
                       </Pressable>
         </View>

@@ -5,11 +5,13 @@ import { useAuth } from "./../../context/AuthContext";
 import { collection, onSnapshot } from "firebase/firestore";
 import { handleRemove } from "@/helperFunctions/global";
 import { useNavigation } from "expo-router";
+import { useTranslation } from "react-i18next";
 
 export default function FavoriteMovies() {
   const { user } = useAuth();
   const [movies, setMovies] = useState<any[]>([]);
 const navigation = useNavigation<any>();
+const {t}=useTranslation()
  useEffect(() => {
   if (!user) return;
 
@@ -56,7 +58,7 @@ const navigation = useNavigation<any>();
               }}
             >
               <Text className="text-orange-500 text-sm font-bold ml-4">
-                Ukloni
+                {t('Remove')}
               </Text>
             </Pressable>
           </View>

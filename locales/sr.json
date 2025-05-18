@@ -1,5 +1,18 @@
 {
   "TrendingMovies": "Популарни филмови",
   "UpcomingMovies": "Ускоро у биоскопима",
-  "TopRatedMovies": "Најбоље оцењени филмови"
+  "TopRatedMovies": "Најбоље оцењени филмови",
+  "SelectLanguage":"Одабери језик",
+  "YourData":"Ваши подаци",
+  "HomePage":"Почетна страница",
+  "Settings":"Подешавања",
+  "FavoriteActorsMovies":"Омиљени глумци и филмови",
+  "LogOut":"Одјави се",
+  "Close":"Затвори",
+  "Actors":"Глумци",
+  "Movies":"Филмови",
+  "Remove":"Уклони",
+  "SearchMovie":"Претражи филм..",
+  "Results":"Резултати",
+  "NoResultMessage":"Нема резултата"
 }

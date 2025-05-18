@@ -29,7 +29,6 @@ export default function App() {
   useEffect(() => {
     const loadLanguage = async () => {
       const savedLanguage = await AsyncStorage.getItem("language");
-      console.log(currentLanguage)
       if (savedLanguage) {
         i18n.changeLanguage(savedLanguage);
       }
@@ -73,7 +72,7 @@ export default function App() {
                     navigate.push('/(protected)/Settings');
                   }}
                 >
-                  <Text className="text-white text-lg font-semibold">⚙️ Podešavanja</Text>
+                  <Text className="text-white text-lg font-semibold">⚙️ {t('Settings')}</Text>
                 </Pressable>
 
                 <Pressable
@@ -82,15 +81,15 @@ export default function App() {
                     navigate.push('/(protected)/Favorites');
                   }}
                 >
-                  <Text className="text-white text-lg font-semibold">⭐ Omiljeni filmovi i glumci</Text>
+                  <Text className="text-white text-lg font-semibold">⭐ {t('FavoriteActorsMovies')}</Text>
                 </Pressable>
 
                 <Pressable onPress={handleLogout}>
-                  <Text className="text-red-500 text-lg font-bold">🚪 Odjavi se</Text>
+                  <Text className="text-red-500 text-lg font-bold">🚪 {t('LogOut')}</Text>
                 </Pressable>
 
                 <Pressable onPress={() => setModalVisible(false)} className="pt-4">
-                  <Text className="text-center text-white text-base opacity-70">Zatvori</Text>
+                  <Text className="text-center text-white text-base opacity-70">{t('Close')}</Text>
                 </Pressable>
               </View>
             </View>

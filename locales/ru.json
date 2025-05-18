@@ -1,0 +1,18 @@
+{
+  "TrendingMovies": "Популярные фильмы",
+  "UpcomingMovies": "Скоро в кино",
+  "TopRatedMovies": "Лучшие фильмы",
+  "SelectLanguage": "Выберите язык",
+  "YourData": "Ваши данные",
+  "HomePage": "Главная страница",
+  "Settings": "Настройки",
+  "FavoriteActorsMovies": "Любимые актёры и фильмы",
+  "LogOut": "Выйти",
+  "Close": "Закрыть",
+  "Actors": "Актёры",
+  "Movies": "Фильмы",
+  "Remove": "Удалить",
+  "SearchMovie": "Поиск фильма...",
+  "Results": "Результаты",
+  "NoResultMessage": "Нет результатов"
+}
