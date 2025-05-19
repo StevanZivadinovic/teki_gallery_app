@@ -4,12 +4,12 @@ import * as Localization from "expo-localization";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import en from './locales/en.json';
 import sr from './locales/sr.json';
-// import ru from './locales/ru.json';
+import ru from './locales/ru.json';
 
 const resources = {
   en: { translation: en },
   sr: { translation: sr },
-//   ru: { translation: ru },
+  ru: { translation: ru },
 };
 
 const initI18n = async () => {
