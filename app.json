@@ -1,14 +1,15 @@
 {
   "expo": {
-    "name": "teki_app",
-    "slug": "teki_app",
+    "name": "Movbeby",
+    "slug": "Movbeby",
+    "main": "node_modules/expo-router/entry.js",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/movie.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/images/splash.png",
+      "image": "./assets/images/movie.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -18,15 +19,15 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/images/movie.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.stevan994.teki_app"
+      "package": "com.stevan994.movbeby"
     },
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./assets/images/movie.png"
     },
     "plugins": [
       "expo-router",
@@ -39,7 +40,7 @@
     "extra": {
       "router": {},
       "eas": {
-        "projectId": "e3bc7dc5-3713-4c97-84f4-3ccb9d7ba20c"
+        "projectId": "20a83930-4f57-4bbb-9148-f70b700891bc"
       }
     },
     "runtimeVersion": {
@@ -47,6 +48,7 @@
     },
     "updates": {
       "url": "https://u.expo.dev/e3bc7dc5-3713-4c97-84f4-3ccb9d7ba20c"
-    }
+    },
+    "owner": "stevan994"
   }
 }
