@@ -5,7 +5,7 @@ module.exports = {
   ],
   plugins: [
     [
-      'module-resolver',
+      'module-resolver','nativewind/babel',
       {
         root: ['./'],
         alias: {
