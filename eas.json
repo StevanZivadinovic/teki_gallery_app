@@ -4,7 +4,10 @@
     "appVersionSource": "remote"
   },
   "build": {
-    
+     "android": {
+      "image": "latest",
+      "ndk": "27.1.12297006"
+    },
     "development": {
       "developmentClient": true,
       "distribution": "internal"
