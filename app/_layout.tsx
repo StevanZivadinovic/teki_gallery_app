@@ -10,7 +10,7 @@ import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { AuthProvider } from "@/context/AuthContext";
-
+import "./../tailwind.css";
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
